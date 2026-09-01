@@ -3,170 +3,135 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>WatchAnimeWorld</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    background:#09090f;
+    color:#fff;
+    font-family:Arial,sans-serif;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background: #0b0b12;
-    color: white;
+header{
+    background:#12121b;
+    padding:18px 6%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid #252532;
 }
 
-/* Header */
-header {
-    height: 70px;
-    background: #12121c;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 6%;
-    border-bottom: 1px solid #242433;
+.logo{
+    font-size:25px;
+    font-weight:bold;
 }
 
-.logo {
-    font-size: 24px;
-    font-weight: bold;
+.logo span{color:#ff3d71}
+
+nav a{
+    color:#ddd;
+    text-decoration:none;
+    margin-left:20px;
 }
 
-.logo span {
-    color: #ff3d71;
+.hero{
+    padding:70px 6%;
+    background:linear-gradient(135deg,#191927,#28121e);
 }
 
-nav a {
-    color: #ddd;
-    text-decoration: none;
-    margin-left: 20px;
+.hero h1{
+    font-size:42px;
+    margin-bottom:12px;
 }
 
-nav a:hover {
-    color: #ff3d71;
+.hero p{
+    color:#aaa;
+    margin-bottom:25px;
 }
 
-/* Hero */
-.hero {
-    padding: 80px 6%;
-    background: linear-gradient(135deg, #171725, #251322);
+.search{
+    width:100%;
+    max-width:600px;
+    padding:16px;
+    border:0;
+    border-radius:8px;
+    font-size:16px;
+    outline:none;
 }
 
-.hero h1 {
-    font-size: 45px;
-    margin-bottom: 15px;
+section{padding:40px 6%}
+
+.title{
+    margin-bottom:25px;
+    font-size:25px;
 }
 
-.hero p {
-    color: #aaa;
-    margin-bottom: 25px;
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+    gap:20px;
 }
 
-.search {
-    width: 100%;
-    max-width: 550px;
-    padding: 16px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    outline: none;
+.anime{
+    background:#15151f;
+    border-radius:10px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:.2s;
 }
 
-/* Sections */
-section {
-    padding: 40px 6%;
+.anime:hover{
+    transform:translateY(-6px);
 }
 
-.section-title {
-    font-size: 25px;
-    margin-bottom: 25px;
+.poster{
+    height:230px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#272735;
+    color:#777;
+    font-size:14px;
 }
 
-/* Anime grid */
-.anime-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 20px;
+.info{
+    padding:13px;
 }
 
-.anime {
-    background: #151520;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: 0.3s;
+.info h3{
+    font-size:16px;
+    margin-bottom:7px;
 }
 
-.anime:hover {
-    transform: translateY(-7px);
+.info p{
+    color:#999;
+    font-size:13px;
 }
 
-.poster {
-    height: 230px;
-    background: linear-gradient(135deg, #29293a, #191925);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #777;
+.no-results{
+    display:none;
+    color:#999;
+    padding:20px 0;
 }
 
-.info {
-    padding: 13px;
+footer{
+    text-align:center;
+    padding:30px;
+    margin-top:30px;
+    background:#12121b;
+    color:#777;
 }
 
-.info h3 {
-    font-size: 16px;
-    margin-bottom: 7px;
-}
-
-.info p {
-    color: #999;
-    font-size: 13px;
-}
-
-/* Footer */
-footer {
-    margin-top: 40px;
-    padding: 30px;
-    text-align: center;
-    background: #12121c;
-    color: #777;
-}
-
-/* Mobile */
-@media(max-width:600px) {
-
-    header {
-        padding: 0 4%;
+@media(max-width:600px){
+    .hero h1{font-size:31px}
+    nav a{margin-left:10px;font-size:13px}
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:12px;
     }
-
-    nav a {
-        margin-left: 10px;
-        font-size: 13px;
-    }
-
-    .hero {
-        padding: 60px 5%;
-    }
-
-    .hero h1 {
-        font-size: 32px;
-    }
-
-    section {
-        padding: 30px 5%;
-    }
-
-    .anime-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-    }
-
-    .poster {
-        height: 210px;
-    }
+    .poster{height:210px}
 }
 </style>
 </head>
@@ -174,94 +139,117 @@ footer {
 <body>
 
 <header>
-
-    <div class="logo">
-        Watch<span>Anime</span>
-    </div>
+    <div class="logo">Watch<span>Anime</span></div>
 
     <nav>
         <a href="#">Home</a>
-        <a href="#">Anime</a>
-        <a href="#">Latest</a>
+        <a href="#anime">Anime</a>
+        <a href="#latest">Latest</a>
     </nav>
-
 </header>
 
-
 <div class="hero">
-
     <h1>Watch Anime Online</h1>
-
-    <p>
-        Discover your favorite anime and explore new worlds.
-    </p>
+    <p>Discover your favorite anime and explore new worlds.</p>
 
     <input
+        id="search"
         class="search"
         type="text"
         placeholder="Search anime..."
     >
-
 </div>
 
+<section id="anime">
 
-<section>
+    <h2 class="title">🔥 Popular Anime</h2>
 
-    <h2 class="section-title">
-        🔥 Popular Anime
-    </h2>
+    <div class="grid" id="animeGrid">
 
-    <div class="anime-grid">
-
-        <div class="anime">
-            <div class="poster">Poster</div>
-
+        <div class="anime" data-name="One Piece">
+            <div class="poster">One Piece</div>
             <div class="info">
                 <h3>One Piece</h3>
                 <p>Action • Adventure</p>
             </div>
         </div>
 
-
-        <div class="anime">
-            <div class="poster">Poster</div>
-
+        <div class="anime" data-name="Naruto">
+            <div class="poster">Naruto</div>
             <div class="info">
                 <h3>Naruto</h3>
                 <p>Action • Adventure</p>
             </div>
         </div>
 
-
-        <div class="anime">
-            <div class="poster">Poster</div>
-
+        <div class="anime" data-name="Attack on Titan">
+            <div class="poster">Attack on Titan</div>
             <div class="info">
                 <h3>Attack on Titan</h3>
                 <p>Action • Fantasy</p>
             </div>
         </div>
 
-
-        <div class="anime">
-            <div class="poster">Poster</div>
-
+        <div class="anime" data-name="Jujutsu Kaisen">
+            <div class="poster">Jujutsu Kaisen</div>
             <div class="info">
                 <h3>Jujutsu Kaisen</h3>
                 <p>Action • Fantasy</p>
             </div>
         </div>
 
+        <div class="anime" data-name="Demon Slayer">
+            <div class="poster">Demon Slayer</div>
+            <div class="info">
+                <h3>Demon Slayer</h3>
+                <p>Action • Fantasy</p>
+            </div>
+        </div>
+
+        <div class="anime" data-name="Dragon Ball">
+            <div class="poster">Dragon Ball</div>
+            <div class="info">
+                <h3>Dragon Ball</h3>
+                <p>Action • Adventure</p>
+            </div>
+        </div>
+
     </div>
+
+    <p class="no-results" id="noResults">No anime found.</p>
 
 </section>
 
-
 <footer>
-
     © 2026 WatchAnimeWorld
-
 </footer>
+
+<script>
+const search = document.getElementById("search");
+const animeCards = document.querySelectorAll(".anime");
+const noResults = document.getElementById("noResults");
+
+search.addEventListener("input", function(){
+
+    const text = search.value.toLowerCase().trim();
+    let found = 0;
+
+    animeCards.forEach(card => {
+
+        const name = card.dataset.name.toLowerCase();
+
+        if(name.includes(text)){
+            card.style.display = "";
+            found++;
+        }else{
+            card.style.display = "none";
+        }
+
+    });
+
+    noResults.style.display = found === 0 ? "block" : "none";
+});
+</script>
 
 </body>
 </html>
