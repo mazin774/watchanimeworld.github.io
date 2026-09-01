@@ -1,984 +1,723 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>WatchAnimeWorld</title>
 
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+
 <style>
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-body{
-    background:#09090f;
-    color:#fff;
-    font-family:Arial,sans-serif;
+body {
+    font-family: Arial, sans-serif;
+    background: #0b0b12;
+    color: white;
 }
 
-header{
-    background:#12121b;
-    padding:18px 6%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-bottom:1px solid #252532;
+header {
+    background: #11111c;
+    padding: 20px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-.logo{
-    font-size:25px;
-    font-weight:bold;
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: #ff1744;
 }
 
-.logo span{
-    color:#ff3d71;
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
 }
 
-nav a{
-    color:#ddd;
-    text-decoration:none;
-    margin-left:20px;
+.hero {
+    text-align: center;
+    padding: 70px 20px;
+    background: linear-gradient(180deg, #161627, #0b0b12);
 }
 
-nav a:hover{
-    color:#ff3d71;
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 15px;
 }
 
-.hero{
-    padding:70px 6%;
-    background:linear-gradient(135deg,#191927,#28121e);
+.hero p {
+    color: #aaa;
+    margin-bottom: 25px;
 }
 
-.hero h1{
-    font-size:43px;
-    margin-bottom:12px;
+.search {
+    width: 90%;
+    max-width: 500px;
+    padding: 15px;
+    border: none;
+    border-radius: 30px;
+    background: #1c1c2a;
+    color: white;
+    outline: none;
 }
 
-.hero p{
-    color:#aaa;
-    margin-bottom:25px;
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
 }
 
-.search{
-    width:100%;
-    max-width:600px;
-    padding:16px;
-    border:0;
-    border-radius:8px;
-    font-size:16px;
-    outline:none;
+.section-title {
+    margin-bottom: 25px;
+    font-size: 28px;
 }
 
-section{
-    padding:45px 6%;
+.anime-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 22px;
 }
 
-.title{
-    font-size:26px;
-    margin-bottom:25px;
+.anime-card {
+    background: #151520;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.3s;
 }
 
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
-    gap:22px;
+.anime-card:hover {
+    transform: translateY(-6px);
 }
 
-.anime{
-    background:#15151f;
-    border-radius:12px;
-    overflow:hidden;
-    transition:.25s;
+.anime-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
 }
 
-.anime:hover{
-    transform:translateY(-7px);
-    box-shadow:0 10px 30px rgba(0,0,0,.4);
+.anime-info {
+    padding: 15px;
 }
 
-.poster{
-    height:270px;
-    background:#272735;
-    overflow:hidden;
+.anime-info h3 {
+    margin-bottom: 8px;
 }
 
-.poster img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
+.rating {
+    color: #ffd740;
+    margin-bottom: 8px;
 }
 
-.info{
-    padding:14px;
+.genre {
+    color: #999;
+    font-size: 13px;
+    margin-bottom: 15px;
 }
 
-.info h3{
-    font-size:17px;
-    margin-bottom:8px;
+button {
+    border: none;
+    background: #ff1744;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
-.rating{
-    color:#ffc107;
-    margin-bottom:10px;
+button:hover {
+    background: #e60032;
 }
 
-.genre{
-    color:#999;
-    font-size:13px;
-    margin-bottom:14px;
+.details {
+    display: none;
 }
 
-.watch-btn{
-    display:block;
-    width:100%;
-    padding:11px;
-    text-align:center;
-    background:#ff3d71;
-    color:white;
-    border:0;
-    border-radius:7px;
-    font-weight:bold;
-    cursor:pointer;
+.back {
+    margin-bottom: 25px;
+    background: #292938;
 }
 
-.watch-btn:hover{
-    background:#ff1f5b;
+.details-header {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 30px;
 }
 
-#details{
-    display:none;
+.details-header img {
+    width: 200px;
+    height: 290px;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
-.details-box{
-    background:#15151f;
-    border-radius:14px;
-    padding:30px;
-    max-width:1000px;
-    margin:auto;
+.details-text h1 {
+    font-size: 35px;
+    margin-bottom: 15px;
 }
 
-.back{
-    display:inline-block;
-    margin-bottom:25px;
-    color:#ff3d71;
-    cursor:pointer;
+.details-text p {
+    color: #aaa;
+    line-height: 1.7;
 }
 
-.details-title{
-    font-size:32px;
-    margin-bottom:10px;
+.season {
+    margin-top: 25px;
 }
 
-.description{
-    color:#aaa;
-    line-height:1.7;
-    margin:15px 0 25px;
+.episodes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
 }
 
-.season-title{
-    font-size:22px;
-    margin-bottom:15px;
+.episode-btn {
+    background: #20202d;
 }
 
-.episodes{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(130px,1fr));
-    gap:12px;
+.player {
+    display: none;
+    margin-top: 35px;
+    background: #11111c;
+    padding: 20px;
+    border-radius: 12px;
 }
 
-.episode{
-    background:#252532;
-    padding:14px;
-    border-radius:7px;
-    text-align:center;
-    cursor:pointer;
-    transition:.2s;
+.player h2 {
+    margin-bottom: 15px;
 }
 
-.episode:hover{
-    background:#ff3d71;
+video {
+    width: 100%;
+    max-height: 600px;
+    background: black;
+    border-radius: 8px;
 }
 
-.episode.active{
-    background:#ff3d71;
+.player-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
 }
 
-#player{
-    display:none;
-    margin-top:30px;
+footer {
+    text-align: center;
+    padding: 40px;
+    color: #777;
+    margin-top: 60px;
 }
 
-.video-title{
-    margin-bottom:12px;
-    font-size:20px;
-}
+@media (max-width: 600px) {
 
-video{
-    width:100%;
-    max-height:600px;
-    background:#000;
-    border-radius:10px;
-    display:block;
-}
-
-.player-buttons{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-    margin-top:12px;
-}
-
-.player-buttons button{
-    flex:1;
-    padding:12px;
-    border:0;
-    border-radius:7px;
-    background:#252532;
-    color:white;
-    cursor:pointer;
-}
-
-.player-buttons button:hover{
-    background:#ff3d71;
-}
-
-footer{
-    text-align:center;
-    padding:30px;
-    margin-top:30px;
-    background:#12121b;
-    color:#777;
-}
-
-@media(max-width:600px){
-
-    .hero h1{
-        font-size:31px;
+    .hero h1 {
+        font-size: 30px;
     }
 
-    nav a{
-        margin-left:10px;
-        font-size:13px;
+    .details-header {
+        flex-direction: column;
     }
 
-    .grid{
-        grid-template-columns:repeat(2,1fr);
-        gap:12px;
+    .details-header img {
+        width: 160px;
+        height: 230px;
     }
 
-    .poster{
-        height:230px;
+    header {
+        padding: 15px 5%;
     }
 
-    .details-box{
-        padding:20px;
+    nav a {
+        margin-left: 10px;
     }
-
-    .details-title{
-        font-size:25px;
-    }
-
-    .player-buttons{
-        flex-direction:column;
-    }
-
 }
-
 </style>
 </head>
 
-
 <body>
 
-
 <header>
+    <div class="logo">WatchAnimeWorld</div>
 
-<div class="logo">
-Watch<span>Anime</span>
-</div>
-
-<nav>
-
-<a href="#" onclick="showHome()">
-Home
-</a>
-
-<a href="#anime">
-Anime
-</a>
-
-<a href="#anime">
-Popular
-</a>
-
-</nav>
-
+    <nav>
+        <a href="#" onclick="showHome()">Home</a>
+    </nav>
 </header>
 
-
-
-<div id="home">
-
-
-<div class="hero">
-
-<h1>
-Watch Anime Online
-</h1>
-
-<p>
-Discover your favorite anime and explore new worlds.
-</p>
-
-<input
-id="search"
-class="search"
-type="text"
-placeholder="Search anime..."
->
-
-</div>
-
-
-
-<section id="anime">
-
-<h2 class="title">
-🔥 Popular Anime
-</h2>
-
-
-<div class="grid">
-
-
-<!-- ONE PIECE -->
-
-<div class="anime" data-name="One Piece">
-
-<div class="poster">
-
-<img
-src="Onepiece.jpg"
-alt="One Piece"
->
-
-</div>
-
-<div class="info">
-
-<h3>
-One Piece
-</h3>
-
-<div class="rating">
-⭐ 9.0
-</div>
-
-<div class="genre">
-Action • Adventure
-</div>
-
-<button
-class="watch-btn"
-onclick="openAnime('One Piece')"
->
-▶ Watch Now
-</button>
-
-</div>
-
-</div>
-
-
-
-<!-- NARUTO -->
-
-<div class="anime" data-name="Naruto">
-
-<div class="poster">
-
-<img
-src="Naruto.jpg"
-alt="Naruto"
->
-
-</div>
-
-<div class="info">
-
-<h3>
-Naruto
-</h3>
-
-<div class="rating">
-⭐ 8.4
-</div>
-
-<div class="genre">
-Action • Adventure
-</div>
-
-<button
-class="watch-btn"
-onclick="openAnime('Naruto')"
->
-▶ Watch Now
-</button>
-
-</div>
-
-</div>
-
-
-
-<!-- ATTACK ON TITAN -->
-
-<div class="anime" data-name="Attack on Titan">
-
-<div class="poster">
-
-<img
-src="Attackontitan.jpg"
-alt="Attack on Titan"
->
-
-</div>
-
-<div class="info">
-
-<h3>
-Attack on Titan
-</h3>
-
-<div class="rating">
-⭐ 9.1
-</div>
-
-<div class="genre">
-Action • Fantasy
-</div>
-
-<button
-class="watch-btn"
-onclick="openAnime('Attack on Titan')"
->
-▶ Watch Now
-</button>
-
-</div>
-
-</div>
-
-
-
-<!-- JUJUTSU KAISEN -->
-
-<div class="anime" data-name="Jujutsu Kaisen">
-
-<div class="poster">
-
-<img
-src="jujutsu-kaisen.jpg"
-alt="Jujutsu Kaisen"
->
-
-</div>
-
-<div class="info">
-
-<h3>
-Jujutsu Kaisen
-</h3>
-
-<div class="rating">
-⭐ 8.6
-</div>
-
-<div class="genre">
-Action • Fantasy
-</div>
-
-<button
-class="watch-btn"
-onclick="openAnime('Jujutsu Kaisen')"
->
-▶ Watch Now
-</button>
-
-</div>
-
-</div>
-
-
-
-<!-- DEMON SLAYER -->
-
-<div class="anime" data-name="Demon Slayer">
-
-<div class="poster">
-
-<img
-src="Demonslayer.jpg"
-alt="Demon Slayer"
->
-
-</div>
-
-<div class="info">
-
-<h3>
-Demon Slayer
-</h3>
-
-<div class="rating">
-⭐ 8.7
-</div>
-
-<div class="genre">
-Action • Fantasy
-</div>
-
-<button
-class="watch-btn"
-onclick="openAnime('Demon Slayer')"
->
-▶ Watch Now
-</button>
-
-</div>
-
-</div>
-
-
-
-<!-- DRAGON BALL -->
-
-<div class="anime" data-name="Dragon Ball">
-
-<div class="poster">
-
-<img
-src="Dragonball.jpg"
-alt="Dragon Ball"
->
-
-</div>
-
-<div class="info">
-
-<h3>
-Dragon Ball
-</h3>
-
-<div class="rating">
-⭐ 8.5
-</div>
-
-<div class="genre">
-Action • Adventure
-</div>
-
-<button
-class="watch-btn"
-onclick="openAnime('Dragon Ball')"
->
-▶ Watch Now
-</button>
-
-</div>
-
-</div>
-
-
-</div>
-
+<section class="hero">
+    <h1>Watch Anime Online</h1>
+    <p>Discover your favorite anime and start watching.</p>
+
+    <input
+        class="search"
+        id="searchInput"
+        type="text"
+        placeholder="Search anime..."
+        onkeyup="searchAnime()"
+    >
 </section>
 
-</div>
+<main class="container">
+
+    <!-- HOME -->
+    <section id="home">
+
+        <h2 class="section-title">Popular Anime</h2>
+
+        <div class="anime-grid" id="animeGrid">
+
+            <div class="anime-card" data-name="One Piece">
+                <img src="Onepiece.jpg" alt="One Piece">
+
+                <div class="anime-info">
+                    <h3>One Piece</h3>
+                    <div class="rating">⭐ 9.0</div>
+                    <div class="genre">Action • Adventure • Fantasy</div>
+
+                    <button onclick="openAnime('One Piece','Onepiece.jpg','9.0')">
+                        Watch Now
+                    </button>
+                </div>
+            </div>
+
+            <div class="anime-card" data-name="Naruto">
+                <img src="Naruto.jpg" alt="Naruto">
+
+                <div class="anime-info">
+                    <h3>Naruto</h3>
+                    <div class="rating">⭐ 8.4</div>
+                    <div class="genre">Action • Adventure</div>
+
+                    <button onclick="openAnime('Naruto','Naruto.jpg','8.4')">
+                        Watch Now
+                    </button>
+                </div>
+            </div>
+
+            <div class="anime-card" data-name="Attack on Titan">
+                <img src="Attackontitan.jpg" alt="Attack on Titan">
+
+                <div class="anime-info">
+                    <h3>Attack on Titan</h3>
+                    <div class="rating">⭐ 9.1</div>
+                    <div class="genre">Action • Drama • Fantasy</div>
+
+                    <button onclick="openAnime('Attack on Titan','Attackontitan.jpg','9.1')">
+                        Watch Now
+                    </button>
+                </div>
+            </div>
+
+            <div class="anime-card" data-name="Jujutsu Kaisen">
+                <img src="jujutsu-kaisen.jpg" alt="Jujutsu Kaisen">
+
+                <div class="anime-info">
+                    <h3>Jujutsu Kaisen</h3>
+                    <div class="rating">⭐ 8.6</div>
+                    <div class="genre">Action • Supernatural</div>
+
+                    <button onclick="openAnime('Jujutsu Kaisen','jujutsu-kaisen.jpg','8.6')">
+                        Watch Now
+                    </button>
+                </div>
+            </div>
+
+            <div class="anime-card" data-name="Demon Slayer">
+                <img src="Demonslayer.jpg" alt="Demon Slayer">
+
+                <div class="anime-info">
+                    <h3>Demon Slayer</h3>
+                    <div class="rating">⭐ 8.7</div>
+                    <div class="genre">Action • Fantasy</div>
+
+                    <button onclick="openAnime('Demon Slayer','Demonslayer.jpg','8.7')">
+                        Watch Now
+                    </button>
+                </div>
+            </div>
+
+            <div class="anime-card" data-name="Dragon Ball">
+                <img src="Dragonball.jpg" alt="Dragon Ball">
+
+                <div class="anime-info">
+                    <h3>Dragon Ball</h3>
+                    <div class="rating">⭐ 8.5</div>
+                    <div class="genre">Action • Adventure</div>
+
+                    <button onclick="openAnime('Dragon Ball','Dragonball.jpg','8.5')">
+                        Watch Now
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
 
 
+    <!-- DETAILS -->
+    <section id="details" class="details">
 
-<!-- DETAILS -->
+        <button class="back" onclick="showHome()">← Back</button>
 
-<section id="details">
+        <div class="details-header">
 
-<div class="details-box">
+            <img id="detailsImage" src="" alt="Anime">
 
+            <div class="details-text">
+                <h1 id="detailsTitle"></h1>
 
-<span
-class="back"
-onclick="showHome()"
->
-← Back to Anime
-</span>
+                <div class="rating" id="detailsRating"></div>
 
+                <p>
+                    Watch episodes of your favorite anime on
+                    WatchAnimeWorld.
+                </p>
+            </div>
 
-<h1
-id="animeTitle"
-class="details-title"
->
-Anime
-</h1>
-
-
-<div class="rating">
-⭐ 9.0
-</div>
+        </div>
 
 
-<p class="description">
+        <div class="season">
 
-Choose an episode below to start watching.
+            <h2>Season 1</h2>
 
-</p>
+            <div class="episodes">
 
+                <button class="episode-btn" onclick="playEpisode(1)">
+                    Episode 1
+                </button>
 
-<h2 class="season-title">
-Season 1
-</h2>
+                <button class="episode-btn" onclick="playEpisode(2)">
+                    Episode 2
+                </button>
 
+                <button class="episode-btn" onclick="playEpisode(3)">
+                    Episode 3
+                </button>
 
-<div class="episodes">
+                <button class="episode-btn" onclick="playEpisode(4)">
+                    Episode 4
+                </button>
 
+                <button class="episode-btn" onclick="playEpisode(5)">
+                    Episode 5
+                </button>
 
-<button
-class="episode"
-onclick="playEpisode(1)"
->
-Episode 1
-</button>
+                <button class="episode-btn" onclick="playEpisode(6)">
+                    Episode 6
+                </button>
 
-<button
-class="episode"
-onclick="playEpisode(2)"
->
-Episode 2
-</button>
+            </div>
 
-<button
-class="episode"
-onclick="playEpisode(3)"
->
-Episode 3
-</button>
-
-<button
-class="episode"
-onclick="playEpisode(4)"
->
-Episode 4
-</button>
-
-<button
-class="episode"
-onclick="playEpisode(5)"
->
-Episode 5
-</button>
-
-<button
-class="episode"
-onclick="playEpisode(6)"
->
-Episode 6
-</button>
+        </div>
 
 
-</div>
+        <!-- VIDEO PLAYER -->
 
+        <div class="player" id="player">
 
+            <h2 id="videoTitle">Episode 1</h2>
 
-<!-- VIDEO PLAYER -->
+            <video
+                id="videoPlayer"
+                controls
+                playsinline
+            ></video>
 
-<div id="player">
+            <div class="player-controls">
 
-<h3
-id="videoTitle"
-class="video-title"
->
-Episode 1
-</h3>
+                <button onclick="previousEpisode()">
+                    ← Previous
+                </button>
 
+                <button onclick="nextEpisode()">
+                    Next →
+                </button>
 
-<video
-id="videoPlayer"
-controls
-playsinline
-preload="metadata"
->
-</video>
+            </div>
 
+        </div>
 
-<div class="player-buttons">
+    </section>
 
-<button onclick="previousEpisode()">
-⏮ Previous
-</button>
-
-<button onclick="nextEpisode()">
-Next ⏭
-</button>
-
-</div>
-
-</div>
-
-
-</div>
-
-</section>
-
+</main>
 
 
 <footer>
-
-© 2026 WatchAnimeWorld
-
+    © 2026 WatchAnimeWorld
 </footer>
-
 
 
 <script>
 
-
+let currentAnime = "";
 let currentEpisode = 1;
+let hls = null;
 
 
 /*
- IMPORTANT:
+    VIDEO LINKS
 
- Put your LEGALLY HOSTED video URLs here.
-
- Example:
-
- 1: "https://your-site.com/videos/episode1.mp4"
-
+    Episode 1 = your M3U8 link
 */
 
 const episodes = {
 
-1: "",
-2: "",
-3: "",
-4: "",
-5: "",
-6: ""
+    1: "https://cp.megavid.buzz/hls/3970b18a-fced-4bd2-9422-e73334b0a0f4/480p/video.m3u8",
+
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: ""
 
 };
 
 
+function openAnime(name, image, rating) {
 
-/* SEARCH */
+    currentAnime = name;
 
-const search =
-document.getElementById("search");
+    document.getElementById("home").style.display = "none";
 
+    document.getElementById("details").style.display = "block";
 
-const animeCards =
-document.querySelectorAll(".anime");
+    document.getElementById("detailsTitle").textContent = name;
 
+    document.getElementById("detailsImage").src = image;
 
-search.addEventListener(
-"input",
-function(){
+    document.getElementById("detailsRating").textContent =
+        "⭐ " + rating;
 
-const text =
-search.value.toLowerCase().trim();
-
-
-animeCards.forEach(
-card => {
-
-const name =
-card.dataset.name.toLowerCase();
-
-
-if(name.includes(text)){
-
-card.style.display = "";
-
-}else{
-
-card.style.display = "none";
-
-}
-
-});
-
-});
-
-
-
-/* OPEN ANIME */
-
-function openAnime(name){
-
-document.getElementById("home")
-.style.display = "none";
-
-
-document.getElementById("details")
-.style.display = "block";
-
-
-document.getElementById("animeTitle")
-.textContent = name;
-
-
-document.getElementById("player")
-.style.display = "none";
-
-
-window.scrollTo(0,0);
-
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
 
+function showHome() {
 
-/* HOME */
+    document.getElementById("details").style.display = "none";
 
-function showHome(){
+    document.getElementById("home").style.display = "block";
 
-document.getElementById("details")
-.style.display = "none";
+    stopVideo();
 
-
-document.getElementById("home")
-.style.display = "block";
-
-
-const video =
-document.getElementById("videoPlayer");
-
-
-video.pause();
-
-video.removeAttribute("src");
-
-video.load();
-
-
-window.scrollTo(0,0);
-
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
 
+function playEpisode(number) {
 
-/* PLAY EPISODE */
+    currentEpisode = number;
 
-function playEpisode(number){
+    const player = document.getElementById("player");
 
-currentEpisode = number;
+    const video = document.getElementById("videoPlayer");
 
+    const title = document.getElementById("videoTitle");
 
-const player =
-document.getElementById("player");
+    const url = episodes[number];
 
+    player.style.display = "block";
 
-const video =
-document.getElementById("videoPlayer");
-
-
-const title =
-document.getElementById("videoTitle");
+    title.textContent =
+        currentAnime + " - Episode " + number;
 
 
-player.style.display = "block";
+    if (hls) {
+
+        hls.destroy();
+
+        hls = null;
+    }
 
 
-title.textContent =
-"Episode " + number;
+    video.removeAttribute("src");
+
+    video.load();
 
 
-if(episodes[number]){
+    if (!url) {
 
-video.src =
-episodes[number];
+        alert("Video URL has not been added yet.");
 
-video.play().catch(
-function(){}
-);
+        return;
+    }
 
-}else{
 
-video.removeAttribute("src");
+    /*
+        HLS.js
+    */
 
-video.load();
+    if (Hls.isSupported()) {
 
-alert(
-"Video URL for Episode "
-+ number
-+ " has not been added yet."
-);
+        hls = new Hls();
 
+        hls.loadSource(url);
+
+        hls.attachMedia(video);
+
+
+        hls.on(
+            Hls.Events.MANIFEST_PARSED,
+            function () {
+
+                video.play().catch(function () {});
+
+            }
+        );
+
+
+        hls.on(
+            Hls.Events.ERROR,
+            function (event, data) {
+
+                console.log("HLS Error:", data);
+
+            }
+        );
+
+    }
+
+
+    /*
+        Safari / native HLS
+    */
+
+    else if (
+        video.canPlayType(
+            "application/vnd.apple.mpegurl"
+        )
+    ) {
+
+        video.src = url;
+
+        video.addEventListener(
+            "loadedmetadata",
+            function () {
+
+                video.play().catch(function () {});
+
+            },
+            { once: true }
+        );
+
+    }
+
+
+    else {
+
+        alert(
+            "This browser does not support HLS video."
+        );
+
+    }
+
+
+    player.scrollIntoView({
+        behavior: "smooth"
+    });
 }
 
 
-document.querySelectorAll(
-".episode"
-).forEach(
-button => {
+function previousEpisode() {
 
-button.classList.remove(
-"active"
-);
+    if (currentEpisode > 1) {
 
-});
+        playEpisode(currentEpisode - 1);
 
-
-document.querySelectorAll(
-".episode"
-)[number-1]
-.classList.add("active");
-
-
-player.scrollIntoView({
-behavior:"smooth"
-});
+    }
 
 }
 
 
+function nextEpisode() {
 
-/* NEXT */
+    if (currentEpisode < 6) {
 
-function nextEpisode(){
+        playEpisode(currentEpisode + 1);
 
-if(currentEpisode < 6){
-
-playEpisode(
-currentEpisode + 1
-);
-
-}
+    }
 
 }
 
 
+function stopVideo() {
 
-/* PREVIOUS */
+    const video =
+        document.getElementById("videoPlayer");
 
-function previousEpisode(){
 
-if(currentEpisode > 1){
+    video.pause();
 
-playEpisode(
-currentEpisode - 1
-);
+    video.removeAttribute("src");
 
+    video.load();
+
+
+    if (hls) {
+
+        hls.destroy();
+
+        hls = null;
+
+    }
+
+
+    document.getElementById("player").style.display =
+        "none";
 }
+
+
+function searchAnime() {
+
+    const search =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+
+    const cards =
+        document.querySelectorAll(".anime-card");
+
+
+    cards.forEach(function(card) {
+
+        const name =
+            card
+            .getAttribute("data-name")
+            .toLowerCase();
+
+
+        if (name.includes(search)) {
+
+            card.style.display = "block";
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
 
 }
 
 </script>
 
-
 </body>
-
 </html>
