@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
+<!DOCTYPE html><html lang="en"><head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>WatchAnimeWorld</title>
-
-<style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>WatchAnimeWorld</title><style>
 
 *{
     box-sizing:border-box;
@@ -290,485 +283,342 @@ footer{
 
 }
 
-</style>
-</head>
-
-
-<body>
-
-
-<header>
-
-<div class="logo">
+</style></head><body><header><div class="logo">
 Watch<span>Anime</span>
-</div>
-
-<nav>
-
-<a href="#" onclick="showHome()">
+</div><nav><a href="#" onclick="showHome()">
 Home
-</a>
-
-<a href="#anime">
+</a><a href="#anime">
 Anime
-</a>
-
-<a href="#anime">
+</a><a href="#anime">
 Popular
-</a>
-
-</nav>
-
-</header>
-
-
-
-<div id="home">
-
-
-<div class="hero">
-
-<h1>
+</a></nav></header><div id="home"><div class="hero"><h1>
 Watch Anime Online
-</h1>
-
-<p>
+</h1><p>
 Discover your favorite anime and explore new worlds.
-</p>
-
-<input
+</p><input
 id="search"
 class="search"
 type="text"
 placeholder="Search anime..."
->
 
-</div>
+«»
 
-
-
-<section id="anime">
-
-<h2 class="title">
+</div><section id="anime"><h2 class="title">
 🔥 Popular Anime
-</h2>
-
-
-<div class="grid">
-
-
-<!-- ONE PIECE -->
-
-<div class="anime" data-name="One Piece">
-
-<div class="poster">
-
-<img
+</h2><div class="grid"><!-- ONE PIECE --><div class="anime" data-name="One Piece"><div class="poster"><img
 src="Onepiece.jpg"
 alt="One Piece"
->
 
-</div>
+«»
 
-<div class="info">
-
-<h3>
+</div><div class="info"><h3>
 One Piece
-</h3>
-
-<div class="rating">
+</h3><div class="rating">
 ⭐ 9.0
-</div>
-
-<div class="genre">
+</div><div class="genre">
 Action • Adventure
-</div>
-
-<button
+</div><button
 class="watch-btn"
 onclick="openAnime('One Piece')"
->
+
+«»
+
 ▶ Watch Now
 </button>
 
-</div>
-
-</div>
-
-
-
-<!-- NARUTO -->
-
-<div class="anime" data-name="Naruto">
-
-<div class="poster">
-
-<img
+</div></div><!-- NARUTO --><div class="anime" data-name="Naruto"><div class="poster"><img
 src="Naruto.jpg"
 alt="Naruto"
->
 
-</div>
+«»
 
-<div class="info">
-
-<h3>
+</div><div class="info"><h3>
 Naruto
-</h3>
-
-<div class="rating">
+</h3><div class="rating">
 ⭐ 8.4
-</div>
-
-<div class="genre">
+</div><div class="genre">
 Action • Adventure
-</div>
-
-<button
+</div><button
 class="watch-btn"
 onclick="openAnime('Naruto')"
->
+
+«»
+
 ▶ Watch Now
 </button>
 
-</div>
-
-</div>
-
-
-
-<!-- ATTACK ON TITAN -->
-
-<div class="anime" data-name="Attack on Titan">
-
-<div class="poster">
-
-<img
+</div></div><!-- ATTACK ON TITAN --><div class="anime" data-name="Attack on Titan"><div class="poster"><img
 src="Attackontitan.jpg"
 alt="Attack on Titan"
->
 
-</div>
+«»
 
-<div class="info">
-
-<h3>
+</div><div class="info"><h3>
 Attack on Titan
-</h3>
-
-<div class="rating">
+</h3><div class="rating">
 ⭐ 9.1
-</div>
-
-<div class="genre">
+</div><div class="genre">
 Action • Fantasy
-</div>
-
-<button
+</div><button
 class="watch-btn"
 onclick="openAnime('Attack on Titan')"
->
+
+«»
+
 ▶ Watch Now
 </button>
 
-</div>
-
-</div>
-
-
-
-<!-- JUJUTSU KAISEN -->
-
-<div class="anime" data-name="Jujutsu Kaisen">
-
-<div class="poster">
-
-<img
+</div></div><!-- JUJUTSU KAISEN --><div class="anime" data-name="Jujutsu Kaisen"><div class="poster"><img
 src="jujutsu-kaisen.jpg"
 alt="Jujutsu Kaisen"
->
 
-</div>
+«»
 
-<div class="info">
-
-<h3>
+</div><div class="info"><h3>
 Jujutsu Kaisen
-</h3>
-
-<div class="rating">
+</h3><div class="rating">
 ⭐ 8.6
-</div>
-
-<div class="genre">
+</div><div class="genre">
 Action • Fantasy
-</div>
-
-<button
+</div><button
 class="watch-btn"
 onclick="openAnime('Jujutsu Kaisen')"
->
+
+«»
+
 ▶ Watch Now
 </button>
 
-</div>
-
-</div>
-
-
-
-<!-- DEMON SLAYER -->
-
-<div class="anime" data-name="Demon Slayer">
-
-<div class="poster">
-
-<img
+</div></div><!-- DEMON SLAYER --><div class="anime" data-name="Demon Slayer"><div class="poster"><img
 src="Demonslayer.jpg"
 alt="Demon Slayer"
->
 
-</div>
+«»
 
-<div class="info">
-
-<h3>
+</div><div class="info"><h3>
 Demon Slayer
-</h3>
-
-<div class="rating">
+</h3><div class="rating">
 ⭐ 8.7
-</div>
-
-<div class="genre">
+</div><div class="genre">
 Action • Fantasy
-</div>
-
-<button
+</div><button
 class="watch-btn"
 onclick="openAnime('Demon Slayer')"
->
+
+«»
+
 ▶ Watch Now
 </button>
 
-</div>
-
-</div>
-
-
-
-<!-- DRAGON BALL -->
-
-<div class="anime" data-name="Dragon Ball">
-
-<div class="poster">
-
-<img
+</div></div><!-- DRAGON BALL --><div class="anime" data-name="Dragon Ball"><div class="poster"><img
 src="Dragonball.jpg"
 alt="Dragon Ball"
->
 
-</div>
+«»
 
-<div class="info">
-
-<h3>
+</div><div class="info"><h3>
 Dragon Ball
-</h3>
-
-<div class="rating">
+</h3><div class="rating">
 ⭐ 8.5
-</div>
-
-<div class="genre">
+</div><div class="genre">
 Action • Adventure
-</div>
-
-<button
+</div><button
 class="watch-btn"
 onclick="openAnime('Dragon Ball')"
->
+
+«»
+
 ▶ Watch Now
 </button>
 
-</div>
-
-</div>
-
-
-</div>
-
-</section>
-
-</div>
-
-
-
-<!-- DETAILS -->
-
-<section id="details">
-
-<div class="details-box">
-
-
-<span
+</div></div></div></section></div><!-- DETAILS --><section id="details"><div class="details-box"><span
 class="back"
 onclick="showHome()"
->
+
+«»
+
 ← Back to Anime
 </span>
-
 
 <h1
 id="animeTitle"
 class="details-title"
 >
 Anime
-</h1>
-
-
-<div class="rating">
+</h1><div class="rating">
 ⭐ 9.0
-</div>
+</div><p class="description">Choose an episode below to start watching.
 
-
-<p class="description">
-
-Choose an episode below to start watching.
-
-</p>
-
-
-<h2 class="season-title">
+</p><h2 class="season-title">
 Season 1
-</h2>
-
-
-<div class="episodes">
-
-
-<button
+</h2><div class="episodes"><button
 class="episode"
 onclick="playEpisode(1)"
->
+
+«»
+
 Episode 1
 </button>
 
 <button
 class="episode"
 onclick="playEpisode(2)"
->
+
+«»
+
 Episode 2
 </button>
 
 <button
 class="episode"
 onclick="playEpisode(3)"
->
+
+«»
+
 Episode 3
 </button>
 
 <button
 class="episode"
 onclick="playEpisode(4)"
->
+
+«»
+
 Episode 4
 </button>
 
 <button
 class="episode"
 onclick="playEpisode(5)"
->
+
+«»
+
 Episode 5
 </button>
 
 <button
 class="episode"
 onclick="playEpisode(6)"
->
+
+«»
+
 Episode 6
 </button>
 
-
-</div>
-
-
-
-<!-- VIDEO PLAYER -->
-
-<div id="player">
-
-<h3
+</div><!-- VIDEO PLAYER --><div id="player"><h3
 id="videoTitle"
 class="video-title"
 >
 Episode 1
-</h3>
-
-
-<video
+</h3><video
 id="videoPlayer"
 controls
 playsinline
 preload="metadata"
->
-</video>
 
+«»
 
-<div class="player-buttons">
-
-<button onclick="previousEpisode()">
+</video><div class="player-buttons"><button onclick="previousEpisode()">
 ⏮ Previous
-</button>
-
-<button onclick="nextEpisode()">
+</button><button onclick="nextEpisode()">
 Next ⏭
-</button>
+</button></div></div></div></section><footer>© 2026 WatchAnimeWorld
 
-</div>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-
-<footer>
-
-© 2026 WatchAnimeWorld
-
-</footer>
-
-
-
-<script>
-
+</footer><script>
 
 let currentEpisode = 1;
 
+let currentAnime = "";
+
 
 /*
- IMPORTANT:
+====================================================
+ANIME EPISODES
+====================================================
 
- Put your LEGALLY HOSTED video URLs here.
+Each anime has its OWN episode links.
 
- Example:
+Add your legally hosted M3U8 or MP4 URL
+inside the correct anime and episode number.
 
- 1: "https://your-site.com/videos/episode1.mp4"
+Example:
 
+"One Piece": {
+    1: "YOUR-M3U8-LINK",
+    2: "YOUR-M3U8-LINK"
+}
+
+====================================================
 */
 
-const episodes = {
+const animeEpisodes = {
 
-1: "https://cp.megavid.buzz/hls/3970b18a-fced-4bd2-9422-e73334b0a0f4/480p/video.m3u8",
-2: "",
-3: "",
-4: "",
-5: "",
-6: ""
+"One Piece": {
+
+    1: "",
+
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: ""
+
+},
+
+"Naruto": {
+
+    1: "https://cp.megavid.buzz/hls/3970b18a-fced-4bd2-9422-e73334b0a0f4/480p/video.m3u8",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: ""
+
+},
+
+"Attack on Titan": {
+
+    1: "",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: ""
+
+},
+
+"Jujutsu Kaisen": {
+
+    1: "",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: ""
+
+},
+
+"Demon Slayer": {
+
+    1: "",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: ""
+
+},
+
+"Dragon Ball": {
+
+    1: "",
+    2: "",
+    3: "",
+    4: "",
+    5: "",
+    6: ""
+
+}
 
 };
 
@@ -819,6 +669,10 @@ card.style.display = "none";
 
 function openAnime(name){
 
+currentAnime = name;
+
+currentEpisode = 1;
+
 document.getElementById("home")
 .style.display = "none";
 
@@ -833,6 +687,14 @@ document.getElementById("animeTitle")
 
 document.getElementById("player")
 .style.display = "none";
+
+
+document.querySelectorAll(".episode")
+.forEach(button => {
+
+button.classList.remove("active");
+
+});
 
 
 window.scrollTo(0,0);
@@ -893,13 +755,37 @@ player.style.display = "block";
 
 
 title.textContent =
-"Episode " + number;
+currentAnime + " - Episode " + number;
 
 
-if(episodes[number]){
+/*
+Get the URL from the CURRENT anime.
 
-video.src =
-episodes[number];
+For example:
+
+One Piece Episode 1
+will use:
+
+animeEpisodes["One Piece"][1]
+
+Naruto Episode 1
+will use:
+
+animeEpisodes["Naruto"][1]
+
+*/
+
+const url =
+animeEpisodes[currentAnime]?.[number] || "";
+
+
+if(url){
+
+video.removeAttribute("src");
+
+video.load();
+
+video.src = url;
 
 video.play().catch(
 function(){}
@@ -907,18 +793,24 @@ function(){}
 
 }else{
 
+video.pause();
+
 video.removeAttribute("src");
 
 video.load();
 
 alert(
-"Video URL for Episode "
+"Video URL for "
++ currentAnime
++ " Episode "
 + number
 + " has not been added yet."
 );
 
 }
 
+
+/* ACTIVE EPISODE */
 
 document.querySelectorAll(
 ".episode"
@@ -976,9 +868,4 @@ currentEpisode - 1
 
 }
 
-</script>
-
-
-</body>
-
-</html>
+</script></body></html>
