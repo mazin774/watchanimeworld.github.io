@@ -96,14 +96,51 @@ section{
 
 .poster{
     height:260px;
-    background:#272735;
+    position:relative;
+    overflow:hidden;
     display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#888;
-    font-size:20px;
+    align-items:flex-end;
+    padding:18px;
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.9),
+            rgba(0,0,0,.1)
+        ),
+        linear-gradient(135deg,#ff3d71,#35134f);
+    font-size:22px;
     font-weight:bold;
 }
+
+.anime:nth-child(2) .poster{
+    background:
+        linear-gradient(to top,rgba(0,0,0,.9),rgba(0,0,0,.1)),
+        linear-gradient(135deg,#ff9f43,#7d1d1d);
+}
+
+.anime:nth-child(3) .poster{
+    background:
+        linear-gradient(to top,rgba(0,0,0,.9),rgba(0,0,0,.1)),
+        linear-gradient(135deg,#536dfe,#10152e);
+}
+
+.anime:nth-child(4) .poster{
+    background:
+        linear-gradient(to top,rgba(0,0,0,.9),rgba(0,0,0,.1)),
+        linear-gradient(135deg,#9c27b0,#24113d);
+}
+
+.anime:nth-child(5) .poster{
+    background:
+        linear-gradient(to top,rgba(0,0,0,.9),rgba(0,0,0,.1)),
+        linear-gradient(135deg,#e53935,#3d0c0c);
+}
+
+.anime:nth-child(6) .poster{
+    background:
+        linear-gradient(to top,rgba(0,0,0,.9),rgba(0,0,0,.1)),
+        linear-gradient(135deg,#fbc02d,#553600);
+                                 }
 
 .info{
     padding:14px;
