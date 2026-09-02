@@ -6,299 +6,69 @@
 <title>WatchAnimeWorld</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
+*{ box-sizing:border-box; margin:0; padding:0; }
+body{ background:#09090f; color:#fff; font-family:Arial,sans-serif; }
+header{ background:#12121b; padding:18px 6%; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #252532; }
+.logo{ font-size:25px; font-weight:bold; }
+.logo span{ color:#ff3d71; }
+nav a{ color:#ddd; text-decoration:none; margin-left:20px; }
+nav a:hover{ color:#ff3d71; }
+.hero{ padding:70px 6%; background:linear-gradient(135deg,#191927,#28121e); }
+.hero h1{ font-size:43px; margin-bottom:12px; }
+.hero p{ color:#aaa; margin-bottom:25px; }
+.search{ width:100%; max-width:600px; padding:16px; border:0; border-radius:8px; font-size:16px; outline:none; }
+section{ padding:45px 6%; }
+.title{ font-size:26px; margin-bottom:25px; }
+.grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:22px; }
+.anime{ background:#15151f; border-radius:12px; overflow:hidden; transition:.25s; }
+.anime:hover{ transform:translateY(-7px); box-shadow:0 10px 30px rgba(0,0,0,.4); }
+.poster{ height:270px; background:#272735; overflow:hidden; }
+.poster img{ width:100%; height:100%; object-fit:cover; display:block; }
+.info{ padding:14px; }
+.info h3{ font-size:17px; margin-bottom:8px; }
+.rating{ color:#ffc107; margin-bottom:10px; }
+.genre{ color:#999; font-size:13px; margin-bottom:14px; }
+.watch-btn{ display:block; width:100%; padding:11px; text-align:center; background:#ff3d71; color:white; border:0; border-radius:7px; font-weight:bold; cursor:pointer; }
+.watch-btn:hover{ background:#ff1f5b; }
+#details{ display:none; }
+.details-box{ background:#15151f; border-radius:14px; padding:30px; max-width:1000px; margin:auto; }
+.back{ display:inline-block; margin-bottom:25px; color:#ff3d71; cursor:pointer; }
+.details-title{ font-size:32px; margin-bottom:10px; }
+.description{ color:#aaa; line-height:1.7; margin:15px 0 25px; }
+.season-title{ font-size:22px; margin-bottom:15px; }
+.episodes{ display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:12px; }
+.episode{ background:#252532; padding:14px; border-radius:7px; text-align:center; cursor:pointer; transition:.2s; color:white; border:0; }
+.episode:hover, .episode.active{ background:#ff3d71; }
+#player{ display:none; margin-top:30px; }
+.video-title{ margin-bottom:12px; font-size:20px; }
 
-body{
-    background:#09090f;
-    color:#fff;
-    font-family:Arial,sans-serif;
-}
+/* CSS بۆ فریم و ڤیدیۆکە */
+.media-container { width: 100%; height: 500px; background: #000; border-radius: 10px; overflow: hidden; }
+video, iframe { width: 100%; height: 100%; border: 0; display: block; }
 
-header{
-    background:#12121b;
-    padding:18px 6%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    border-bottom:1px solid #252532;
-}
-
-.logo{
-    font-size:25px;
-    font-weight:bold;
-}
-
-.logo span{
-    color:#ff3d71;
-}
-
-nav a{
-    color:#ddd;
-    text-decoration:none;
-    margin-left:20px;
-}
-
-nav a:hover{
-    color:#ff3d71;
-}
-
-.hero{
-    padding:70px 6%;
-    background:linear-gradient(135deg,#191927,#28121e);
-}
-
-.hero h1{
-    font-size:43px;
-    margin-bottom:12px;
-}
-
-.hero p{
-    color:#aaa;
-    margin-bottom:25px;
-}
-
-.search{
-    width:100%;
-    max-width:600px;
-    padding:16px;
-    border:0;
-    border-radius:8px;
-    font-size:16px;
-    outline:none;
-}
-
-section{
-    padding:45px 6%;
-}
-
-.title{
-    font-size:26px;
-    margin-bottom:25px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
-    gap:22px;
-}
-
-.anime{
-    background:#15151f;
-    border-radius:12px;
-    overflow:hidden;
-    transition:.25s;
-}
-
-.anime:hover{
-    transform:translateY(-7px);
-    box-shadow:0 10px 30px rgba(0,0,0,.4);
-}
-
-.poster{
-    height:270px;
-    background:#272735;
-    overflow:hidden;
-}
-
-.poster img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-}
-
-.info{
-    padding:14px;
-}
-
-.info h3{
-    font-size:17px;
-    margin-bottom:8px;
-}
-
-.rating{
-    color:#ffc107;
-    margin-bottom:10px;
-}
-
-.genre{
-    color:#999;
-    font-size:13px;
-    margin-bottom:14px;
-}
-
-.watch-btn{
-    display:block;
-    width:100%;
-    padding:11px;
-    text-align:center;
-    background:#ff3d71;
-    color:white;
-    border:0;
-    border-radius:7px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.watch-btn:hover{
-    background:#ff1f5b;
-}
-
-#details{
-    display:none;
-}
-
-.details-box{
-    background:#15151f;
-    border-radius:14px;
-    padding:30px;
-    max-width:1000px;
-    margin:auto;
-}
-
-.back{
-    display:inline-block;
-    margin-bottom:25px;
-    color:#ff3d71;
-    cursor:pointer;
-}
-
-.details-title{
-    font-size:32px;
-    margin-bottom:10px;
-}
-
-.description{
-    color:#aaa;
-    line-height:1.7;
-    margin:15px 0 25px;
-}
-
-.season-title{
-    font-size:22px;
-    margin-bottom:15px;
-}
-
-.episodes{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(130px,1fr));
-    gap:12px;
-}
-
-.episode{
-    background:#252532;
-    padding:14px;
-    border-radius:7px;
-    text-align:center;
-    cursor:pointer;
-    transition:.2s;
-    color:white;
-    border:0;
-}
-
-.episode:hover{
-    background:#ff3d71;
-}
-
-.episode.active{
-    background:#ff3d71;
-}
-
-#player{
-    display:none;
-    margin-top:30px;
-}
-
-.video-title{
-    margin-bottom:12px;
-    font-size:20px;
-}
-
-video{
-    width:100%;
-    max-height:600px;
-    background:#000;
-    border-radius:10px;
-    display:block;
-}
-
-.player-buttons{
-    display:flex;
-    justify-content:space-between;
-    gap:10px;
-    margin-top:12px;
-}
-
-.player-buttons button{
-    flex:1;
-    padding:12px;
-    border:0;
-    border-radius:7px;
-    background:#252532;
-    color:white;
-    cursor:pointer;
-}
-
-.player-buttons button:hover{
-    background:#ff3d71;
-}
-
-footer{
-    text-align:center;
-    padding:30px;
-    margin-top:30px;
-    background:#12121b;
-    color:#777;
-}
+.player-buttons{ display:flex; justify-content:space-between; gap:10px; margin-top:12px; }
+.player-buttons button{ flex:1; padding:12px; border:0; border-radius:7px; background:#252532; color:white; cursor:pointer; }
+.player-buttons button:hover{ background:#ff3d71; }
+footer{ text-align:center; padding:30px; margin-top:30px; background:#12121b; color:#777; }
 
 @media(max-width:600px){
-    .hero h1{
-        font-size:31px;
-    }
-
-    nav a{
-        margin-left:10px;
-        font-size:13px;
-    }
-
-    .grid{
-        grid-template-columns:repeat(2,1fr);
-        gap:12px;
-    }
-
-    .poster{
-        height:230px;
-    }
-
-    .details-box{
-        padding:20px;
-    }
-
-    .details-title{
-        font-size:25px;
-    }
-
-    .player-buttons{
-        flex-direction:column;
-    }
+    .hero h1{ font-size:31px; }
+    nav a{ margin-left:10px; font-size:13px; }
+    .grid{ grid-template-columns:repeat(2,1fr); gap:12px; }
+    .poster{ height:230px; }
+    .details-box{ padding:20px; }
+    .details-title{ font-size:25px; }
+    .media-container { height: 260px; }
+    .player-buttons{ flex-direction:column; }
 }
 </style>
 
-<!-- HLS PLAYER -->
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
-
 </head>
 <body>
 
 <header>
-<div class="logo">
-Watch<span>Anime</span>
-</div>
-
+<div class="logo">Watch<span>Anime</span></div>
 <nav>
 <a href="#" onclick="showHome()">Home</a>
 <a href="#anime" onclick="showHome()">Anime</a>
@@ -317,7 +87,6 @@ Watch<span>Anime</span>
 <h2 class="title">🔥 Popular Anime</h2>
 <div class="grid">
 
-<!-- ONE PIECE -->
 <div class="anime" data-name="One Piece">
 <div class="poster"><img src="Onepiece.jpg" alt="One Piece"></div>
 <div class="info">
@@ -328,7 +97,6 @@ Watch<span>Anime</span>
 </div>
 </div>
 
-<!-- NARUTO -->
 <div class="anime" data-name="Naruto">
 <div class="poster"><img src="Naruto.jpg" alt="Naruto"></div>
 <div class="info">
@@ -339,7 +107,6 @@ Watch<span>Anime</span>
 </div>
 </div>
 
-<!-- ATTACK ON TITAN -->
 <div class="anime" data-name="Attack on Titan">
 <div class="poster"><img src="Attackontitan.jpg" alt="Attack on Titan"></div>
 <div class="info">
@@ -350,7 +117,6 @@ Watch<span>Anime</span>
 </div>
 </div>
 
-<!-- JUJUTSU KAISEN -->
 <div class="anime" data-name="Jujutsu Kaisen">
 <div class="poster"><img src="jujutsu-kaisen.jpg" alt="Jujutsu Kaisen"></div>
 <div class="info">
@@ -361,7 +127,6 @@ Watch<span>Anime</span>
 </div>
 </div>
 
-<!-- DEMON SLAYER -->
 <div class="anime" data-name="Demon Slayer">
 <div class="poster"><img src="Demonslayer.jpg" alt="Demon Slayer"></div>
 <div class="info">
@@ -372,7 +137,6 @@ Watch<span>Anime</span>
 </div>
 </div>
 
-<!-- DRAGON BALL -->
 <div class="anime" data-name="Dragon Ball">
 <div class="poster"><img src="Dragonball.jpg" alt="Dragon Ball"></div>
 <div class="info">
@@ -387,15 +151,12 @@ Watch<span>Anime</span>
 </section>
 </div>
 
-<!-- DETAILS -->
 <section id="details">
 <div class="details-box">
 <span class="back" onclick="showHome()">← Back to Anime</span>
-
 <h1 id="animeTitle" class="details-title">Anime</h1>
 <div class="rating">⭐ 9.0</div>
 <p class="description">Choose an episode below to start watching.</p>
-
 <h2 class="season-title">Season 1</h2>
 
 <div class="episodes">
@@ -407,10 +168,11 @@ Watch<span>Anime</span>
 <button class="episode" onclick="playEpisode(6)">Episode 6</button>
 </div>
 
-<!-- VIDEO PLAYER -->
 <div id="player">
 <h3 id="videoTitle" class="video-title">Episode 1</h3>
-<video id="videoPlayer" controls playsinline preload="metadata"></video>
+<div class="media-container" id="mediaBox">
+  <!-- ڤیدیۆ یان iframe لێرە دیاری دەکرێت -->
+</div>
 <div class="player-buttons">
 <button onclick="previousEpisode()">⏮ Previous</button>
 <button onclick="nextEpisode()">Next ⏭</button>
@@ -420,9 +182,7 @@ Watch<span>Anime</span>
 </div>
 </section>
 
-<footer>
-© 2026 WatchAnimeWorld
-</footer>
+<footer>© 2026 WatchAnimeWorld</footer>
 
 <script>
 let currentEpisode = 1;
@@ -430,18 +190,18 @@ let currentAnime = "";
 let hls = null;
 
 const animeEpisodes = {
-    "One Piece": {
-        1: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", // بۆ تاقیکردنەوە
+    "One Piece": { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "" },
+    "Naruto": {
+        // بەستەرەکەی MovieBox لێرە کار دەکات چونکە وەک iframe مامەڵەی لەگەڵ دەکات
+        1: "https://info.movieboxnoob.cc/video/bnhcbsIyohfvsofCKIXcWItzk9Yi8BFi39yh1-B6lrA/video_1080p.m3u8",
         2: "", 3: "", 4: "", 5: "", 6: ""
     },
-    "Naruto": { 1: "https://info.movieboxnoob.cc/video/bnhcbsIyohfvsofCKIXcWItzk9Yi8BFi39yh1-B6lrA/video_1080p.m3u8", 2: "", 3: "", 4: "", 5: "", 6: "" },
     "Attack on Titan": { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "" },
     "Jujutsu Kaisen": { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "" },
     "Demon Slayer": { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "" },
     "Dragon Ball": { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "" }
 };
 
-/* SEARCH */
 const search = document.getElementById("search");
 const animeCards = document.querySelectorAll(".anime");
 
@@ -449,86 +209,48 @@ search.addEventListener("input", function(){
     const text = search.value.toLowerCase().trim();
     animeCards.forEach(card => {
         const name = card.dataset.name.toLowerCase();
-        if(name.includes(text)){
-            card.style.display = "";
-        }else{
-            card.style.display = "none";
-        }
+        card.style.display = name.includes(text) ? "" : "none";
     });
 });
 
-/* OPEN ANIME */
 function openAnime(name){
     currentAnime = name;
     currentEpisode = 1;
-
     document.getElementById("home").style.display = "none";
     document.getElementById("details").style.display = "block";
     document.getElementById("animeTitle").textContent = name;
     document.getElementById("player").style.display = "none";
-
-    document.querySelectorAll(".episode").forEach(button => {
-        button.classList.remove("active");
-    });
-
+    document.querySelectorAll(".episode").forEach(b => b.classList.remove("active"));
     window.scrollTo(0,0);
 }
 
-/* LOAD VIDEO (MP4 & M3U8 SUPPORT) */
 function loadVideo(url) {
-    const video = document.getElementById("videoPlayer");
-
-    // سڕینەوەی HLSی کۆن ئەگەر هەبێت
-    if (hls) {
-        hls.destroy();
-        hls = null;
-    }
-
-    video.pause();
-    video.removeAttribute("src");
-    video.load();
+    const mediaBox = document.getElementById("mediaBox");
+    if (hls) { hls.destroy(); hls = null; }
+    mediaBox.innerHTML = ""; // خاوێنکردنەوەی ناوی mediaBox
 
     if (!url) return;
 
-    // ئەگەر فایلەکە MP4 بوو
+    // ئەگەر بەستەری ڕاستەوخۆی MP4 بوو
     if (url.endsWith(".mp4")) {
-        video.src = url;
-        video.play().catch(e => console.log("Autoplay blocked:", e));
+        mediaBox.innerHTML = `<video id="videoPlayer" controls playsinline src="${url}"></video>`;
+        document.getElementById("videoPlayer").play().catch(()=>{});
     } 
-    // ئەگەر فایلەکە M3U8 بوو
-    else if (window.Hls && Hls.isSupported()) {
-        hls = new Hls();
-        hls.loadSource(url);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, function() {
-            video.play().catch(e => console.log("Autoplay blocked:", e));
-        });
-    } 
+    // ئەگەر بەستەری دەرەکی بوو (وەک MovieBox یان فایلی HLS کە کێشەی CORS هەیە)
     else {
-        video.src = url;
-        video.play().catch(e => console.log("Autoplay blocked:", e));
+        mediaBox.innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay"></iframe>`;
     }
 }
 
-/* HOME */
 function showHome(){
     document.getElementById("details").style.display = "none";
     document.getElementById("home").style.display = "block";
-
-    const video = document.getElementById("videoPlayer");
-    if(hls){
-        hls.destroy();
-        hls = null;
-    }
-
-    video.pause();
-    video.removeAttribute("src");
-    video.load();
-
+    const mediaBox = document.getElementById("mediaBox");
+    mediaBox.innerHTML = "";
+    if (hls) { hls.destroy(); hls = null; }
     window.scrollTo(0,0);
 }
 
-/* PLAY EPISODE */
 function playEpisode(number){
     currentEpisode = number;
     const player = document.getElementById("player");
@@ -536,12 +258,7 @@ function playEpisode(number){
     const url = animeEpisodes[currentAnime]?.[number] || "";
 
     if (!url) {
-        if (hls) { hls.destroy(); hls = null; }
-        const video = document.getElementById("videoPlayer");
-        video.pause();
-        video.removeAttribute("src");
-        video.load();
-        
+        document.getElementById("mediaBox").innerHTML = "";
         player.style.display = "none";
         alert("ئەم ئەڵقەیە بەستەری بۆ دانەنراوە!");
         return;
@@ -549,33 +266,17 @@ function playEpisode(number){
 
     player.style.display = "block";
     title.textContent = currentAnime + " - Episode " + number;
-
     loadVideo(url);
 
-    document.querySelectorAll(".episode").forEach(button => {
-        button.classList.remove("active");
-    });
-
+    document.querySelectorAll(".episode").forEach(b => b.classList.remove("active"));
     const activeBtn = document.querySelectorAll(".episode")[number-1];
-    if (activeBtn) {
-        activeBtn.classList.add("active");
-    }
+    if (activeBtn) activeBtn.classList.add("active");
 
     player.scrollIntoView({ behavior:"smooth" });
 }
 
-/* NEXT & PREVIOUS */
-function nextEpisode(){
-    if(currentEpisode < 6){
-        playEpisode(currentEpisode + 1);
-    }
-}
-
-function previousEpisode(){
-    if(currentEpisode > 1){
-        playEpisode(currentEpisode - 1);
-    }
-}
+function nextEpisode(){ if(currentEpisode < 6) playEpisode(currentEpisode + 1); }
+function previousEpisode(){ if(currentEpisode > 1) playEpisode(currentEpisode - 1); }
 </script>
 
 </body>
