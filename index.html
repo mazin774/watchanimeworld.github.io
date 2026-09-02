@@ -34,7 +34,16 @@ section{ padding:45px 6%; }
 .details-box{ background:#15151f; border-radius:14px; padding:30px; max-width:1000px; margin:auto; }
 .back{ display:inline-block; margin-bottom:25px; color:#ff3d71; cursor:pointer; }
 .details-title{ font-size:32px; margin-bottom:10px; }
-.description{ color:#aaa; line-height:1.7; margin:15px 0 25px; }
+
+/* --- Overview Styling --- */
+.overview-sec { margin-top: 25px; border-top: 1px solid #252532; padding-top: 20px; }
+.overview-title { font-size: 20px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+.overview-desc { color: #ccc; line-height: 1.7; font-size: 15px; margin-bottom: 20px; }
+.info-group { margin-bottom: 15px; }
+.info-label { color: #888; font-size: 14px; margin-bottom: 5px; }
+.info-value { color: #fff; font-size: 15px; }
+.tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 5px; }
+.tag { background: #252532; padding: 5px 12px; border-radius: 6px; font-size: 13px; color: #ddd; }
 
 .media-container { width: 100%; height: 500px; background: #000; border-radius: 10px; overflow: hidden; margin-top: 20px; }
 video, iframe { width: 100%; height: 100%; border: 0; display: block; }
@@ -86,8 +95,8 @@ footer{ text-align:center; padding:30px; margin-top:30px; background:#12121b; co
 <div class="poster"><img src="Swapped.jpg" alt="Swapped"></div>
 <div class="info">
 <h3>Swapped</h3>
-<div class="rating">⭐ 8.5</div>
-<div class="genre">animation • Adventure • Family • Fantasy </div>
+<div class="rating">⭐ none</div>
+<div class="genre">animation • Adventure • Family • fantasy </div>
 <button class="watch-btn" onclick="openAnime('Swapped')">Watch Now</button>
 </div>
 </div>
@@ -110,9 +119,35 @@ footer{ text-align:center; padding:30px; margin-top:30px; background:#12121b; co
 <div class="details-box">
 <span class="back" onclick="showHome()">← Back</span>
 <h1 id="animeTitle" class="details-title">Anime Title</h1>
-<p id="animeDesc" class="description">Enjoy watching the full anime movie.</p>
 
 <div class="media-container" id="mediaBox"></div>
+
+<div class="overview-sec">
+    <div class="overview-title">ℹ️ Overview</div>
+    <p id="movieDesc" class="overview-desc">Movie description goes here...</p>
+
+    <div class="info-group">
+        <div class="info-label">Runtime:</div>
+        <div class="info-value" id="movieRuntime">1h 42m</div>
+    </div>
+
+    <div class="info-group">
+        <div class="info-label">Genres</div>
+        <div class="tags" id="movieGenres">
+            </div>
+    </div>
+
+    <div class="info-group">
+        <div class="info-label">Production</div>
+        <div class="info-value" id="movieProduction">Studio Name</div>
+    </div>
+
+    <div class="info-group">
+        <div class="info-label">Languages</div>
+        <div class="info-value" id="movieLanguage">Japanese / English</div>
+    </div>
+</div>
+
 </div>
 </section>
 
@@ -141,10 +176,32 @@ footer{ text-align:center; padding:30px; margin-top:30px; background:#12121b; co
 let currentAnime = "";
 let hls = null;
 
-const animeEpisodes = {
-    "naruto": "",
-    "Swapped": "https://fuckme.dragonballzfans.xyz/8476111ce1283036af4e67f8da549cb5/f693e2a5a468d59e1ac04ebacb58e27e.m3u8",
-    "Klaus": ""
+// زانیاری تەواوی ئەنیمێ/فیلمەکان
+const animeData = {
+    "Naruto": {
+        url: "",
+        desc: "A young ninja who seeks recognition from his peers and dreams of becoming the Hokage, the leader of his village.",
+        runtime: "1h 35m",
+        genres: ["Action", "Adventure", "Fantasy"],
+        production: "Studio Pierrot",
+        language: "Japanese, English"
+    },
+    "Swapped": {
+        url: "https://fuckme.dragonballzfans.xyz/8476111ce1283036af4e67f8da549cb5/f693e2a5a468d59e1ac04ebacb58e27e.m3u8",
+        desc: "A small woodland creature and a majestic bird,two natural sworn enemies of the valley, magically trade places and set off on an adventure of a lifetime to switch back. Their journey soon uncovers a greater threat——one that could endganer not only their species, but the entire valley they call home.",
+        runtime: "1h 42m",
+        genres: ["Animation", "Family", "adventure", "fantasy" ],
+        production: "skydance animation",
+        language: "English"
+    },
+    "One Piece": {
+        url: "",
+        desc: "Monkey D. Luffy explores the Grand Line with his pirate crew in search of the ultimate treasure known as One Piece.",
+        runtime: "1h 50m",
+        genres: ["Action", "Adventure", "Fantasy"],
+        production: "Toei Animation",
+        language: "Japanese"
+    }
 };
 
 const search = document.getElementById("search");
@@ -164,8 +221,23 @@ function openAnime(name){
     document.getElementById("details").style.display = "block";
     document.getElementById("animeTitle").textContent = name;
     
-    const url = animeEpisodes[name] || "";
-    loadVideo(url);
+    const data = animeData[name] || {};
+    
+    // پڕکردنەوەی بەشی Overview
+    document.getElementById("movieDesc").textContent = data.desc || "No description available.";
+    document.getElementById("movieRuntime").textContent = data.runtime || "N/A";
+    document.getElementById("movieProduction").textContent = data.production || "N/A";
+    document.getElementById("movieLanguage").textContent = data.language || "N/A";
+    
+    const genreBox = document.getElementById("movieGenres");
+    genreBox.innerHTML = "";
+    if (data.genres) {
+        data.genres.forEach(g => {
+            genreBox.innerHTML += `<span class="tag">${g}</span>`;
+        });
+    }
+
+    loadVideo(data.url || "");
     window.scrollTo(0,0);
 }
 
