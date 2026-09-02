@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WatchAnimeWorld</title>
+<title>WatchAnimeMovies</title>
 
 <style>
 *{ box-sizing:border-box; margin:0; padding:0; }
@@ -35,31 +35,17 @@ section{ padding:45px 6%; }
 .back{ display:inline-block; margin-bottom:25px; color:#ff3d71; cursor:pointer; }
 .details-title{ font-size:32px; margin-bottom:10px; }
 .description{ color:#aaa; line-height:1.7; margin:15px 0 25px; }
-.season-title{ font-size:22px; margin-bottom:15px; }
-.episodes{ display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:12px; }
-.episode{ background:#252532; padding:14px; border-radius:7px; text-align:center; cursor:pointer; transition:.2s; color:white; border:0; }
-.episode:hover, .episode.active{ background:#ff3d71; }
-#player{ display:none; margin-top:30px; }
-.video-title{ margin-bottom:12px; font-size:20px; }
 
-/* CSS بۆ فریم و ڤیدیۆکە */
-.media-container { width: 100%; height: 500px; background: #000; border-radius: 10px; overflow: hidden; }
+.media-container { width: 100%; height: 500px; background: #000; border-radius: 10px; overflow: hidden; margin-top: 20px; }
 video, iframe { width: 100%; height: 100%; border: 0; display: block; }
 
-.player-buttons{ display:flex; justify-content:space-between; gap:10px; margin-top:12px; }
-.player-buttons button{ flex:1; padding:12px; border:0; border-radius:7px; background:#252532; color:white; cursor:pointer; }
-.player-buttons button:hover{ background:#ff3d71; }
 footer{ text-align:center; padding:30px; margin-top:30px; background:#12121b; color:#777; }
 
 @media(max-width:600px){
     .hero h1{ font-size:31px; }
-    nav a{ margin-left:10px; font-size:13px; }
     .grid{ grid-template-columns:repeat(2,1fr); gap:12px; }
     .poster{ height:230px; }
-    .details-box{ padding:20px; }
-    .details-title{ font-size:25px; }
     .media-container { height: 260px; }
-    .player-buttons{ flex-direction:column; }
 }
 </style>
 
@@ -68,82 +54,51 @@ footer{ text-align:center; padding:30px; margin-top:30px; background:#12121b; co
 <body>
 
 <header>
-<div class="logo">Watch<span>Anime</span></div>
+<div class="logo">Watch<span>Movies</span></div>
 <nav>
 <a href="#" onclick="showHome()">Home</a>
-<a href="#anime" onclick="showHome()">Anime</a>
-<a href="#anime" onclick="showHome()">Popular</a>
+<a href="#movies" onclick="showHome()">Movies</a>
 </nav>
 </header>
 
 <div id="home">
 <div class="hero">
-<h1>Watch Anime Online</h1>
-<p>Discover your favorite anime and explore new worlds.</p>
-<input id="search" class="search" type="text" placeholder="Search anime...">
+<h1>Watch Anime Movies</h1>
+<p>Enjoy full anime movies in high quality.</p>
+<input id="search" class="search" type="text" placeholder="Search movies...">
 </div>
 
-<section id="anime">
-<h2 class="title">🔥 Popular Anime</h2>
+<section id="movies">
+<h2 class="title">🎬 Popular Movies</h2>
 <div class="grid">
 
-<div class="anime" data-name="One Piece">
-<div class="poster"><img src="Onepiece.jpg" alt="One Piece"></div>
+<div class="anime" data-name="Dragon Ball Super: Broly">
+<div class="poster"><img src="Dragonball.jpg" alt="Dragon Ball Super: Broly"></div>
 <div class="info">
-<h3>One Piece</h3>
-<div class="rating">⭐ 9.0</div>
-<div class="genre">Action • Adventure</div>
-<button class="watch-btn" onclick="openAnime('One Piece')">▶ Watch Now</button>
+<h3>Dragon Ball Super: Broly</h3>
+<div class="rating">⭐ 7.8</div>
+<div class="genre">Action • Fantasy</div>
+<button class="watch-btn" onclick="openMovie('Dragon Ball Super: Broly')">▶ Watch Movie</button>
 </div>
 </div>
 
-<div class="anime" data-name="Naruto">
-<div class="poster"><img src="Naruto.jpg" alt="Naruto"></div>
+<div class="anime" data-name="Your Name">
+<div class="poster"><img src="Yourname.jpg" alt="Your Name"></div>
 <div class="info">
-<h3>Naruto</h3>
+<h3>Your Name</h3>
 <div class="rating">⭐ 8.4</div>
-<div class="genre">Action • Adventure</div>
-<button class="watch-btn" onclick="openAnime('Naruto')">▶ Watch Now</button>
+<div class="genre">Romance • Drama</div>
+<button class="watch-btn" onclick="openMovie('Your Name')">▶ Watch Movie</button>
 </div>
 </div>
 
-<div class="anime" data-name="Attack on Titan">
-<div class="poster"><img src="Attackontitan.jpg" alt="Attack on Titan"></div>
+<div class="anime" data-name="Spirited Away">
+<div class="poster"><img src="Spiritedaway.jpg" alt="Spirited Away"></div>
 <div class="info">
-<h3>Attack on Titan</h3>
-<div class="rating">⭐ 9.1</div>
-<div class="genre">Action • Fantasy</div>
-<button class="watch-btn" onclick="openAnime('Attack on Titan')">▶ Watch Now</button>
-</div>
-</div>
-
-<div class="anime" data-name="Jujutsu Kaisen">
-<div class="poster"><img src="jujutsu-kaisen.jpg" alt="Jujutsu Kaisen"></div>
-<div class="info">
-<h3>Jujutsu Kaisen</h3>
+<h3>Spirited Away</h3>
 <div class="rating">⭐ 8.6</div>
-<div class="genre">Action • Fantasy</div>
-<button class="watch-btn" onclick="openAnime('Jujutsu Kaisen')">▶ Watch Now</button>
-</div>
-</div>
-
-<div class="anime" data-name="Demon Slayer">
-<div class="poster"><img src="Demonslayer.jpg" alt="Demon Slayer"></div>
-<div class="info">
-<h3>Demon Slayer</h3>
-<div class="rating">⭐ 8.7</div>
-<div class="genre">Action • Fantasy</div>
-<button class="watch-btn" onclick="openAnime('Demon Slayer')">▶ Watch Now</button>
-</div>
-</div>
-
-<div class="anime" data-name="Dragon Ball">
-<div class="poster"><img src="Dragonball.jpg" alt="Dragon Ball"></div>
-<div class="info">
-<h3>Dragon Ball</h3>
-<div class="rating">⭐ 8.5</div>
-<div class="genre">Action • Adventure</div>
-<button class="watch-btn" onclick="openAnime('Dragon Ball')">▶ Watch Now</button>
+<div class="genre">Adventure • Fantasy</div>
+<button class="watch-btn" onclick="openMovie('Spirited Away')">▶ Watch Movie</button>
 </div>
 </div>
 
@@ -153,32 +108,11 @@ footer{ text-align:center; padding:30px; margin-top:30px; background:#12121b; co
 
 <section id="details">
 <div class="details-box">
-<span class="back" onclick="showHome()">← Back to Anime</span>
-<h1 id="animeTitle" class="details-title">Anime</h1>
-<div class="rating">⭐ 9.0</div>
-<p class="description">Choose an episode below to start watching.</p>
-<h2 class="season-title">Season 1</h2>
+<span class="back" onclick="showHome()">← Back to Movies</span>
+<h1 id="movieTitle" class="details-title">Movie Title</h1>
+<p class="description">Click below to start playing the movie.</p>
 
-<div class="episodes">
-<button class="episode" onclick="playEpisode(1)">Episode 1</button>
-<button class="episode" onclick="playEpisode(2)">Episode 2</button>
-<button class="episode" onclick="playEpisode(3)">Episode 3</button>
-<button class="episode" onclick="playEpisode(4)">Episode 4</button>
-<button class="episode" onclick="playEpisode(5)">Episode 5</button>
-<button class="episode" onclick="playEpisode(6)">Episode 6</button>
-</div>
-
-<div id="player">
-<h3 id="videoTitle" class="video-title">Episode 1</h3>
-<div class="media-container" id="mediaBox">
-  <!-- ڤیدیۆ یان iframe لێرە دیاری دەکرێت -->
-</div>
-<div class="player-buttons">
-<button onclick="previousEpisode()">⏮ Previous</button>
-<button onclick="nextEpisode()">Next ⏭</button>
-</div>
-</div>
-
+<div class="media-container" id="mediaBox"></div>
 </div>
 </section>
 
@@ -195,47 +129,22 @@ footer{ text-align:center; padding:30px; margin-top:30px; background:#12121b; co
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 61, 113, 0.15);
         margin-bottom: 18px;
     ">
-        <span style="
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            background-color: #00ff88;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #00ff88;
-        "></span>
-        <span style="
-            font-size: 14px;
-            font-weight: bold;
-            color: #e1e1e1;
-            letter-spacing: 0.5px;
-        ">Total Visitors</span>
-        <img src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fmazin774.github.io%2Fwatchanimeworld.github.io%2F&label=&icon=github&color=%23ff3d71&message=&style=flat&tz=UTC" 
-             alt="Views Counter" 
-             style="border-radius: 6px; display: block;">
+        <span style="display: inline-block; width: 10px; height: 10px; background-color: #00ff88; border-radius: 50%; box-shadow: 0 0 10px #00ff88;"></span>
+        <span style="font-size: 14px; font-weight: bold; color: #e1e1e1;">Total Visitors</span>
+        <img src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fmazin774.github.io%2Fwatchanimeworld.github.io%2F&label=&icon=github&color=%23ff3d71&message=&style=flat&tz=UTC" alt="Views Counter" style="border-radius: 6px; display: block;">
     </div>
     <br>
-    <div style="color: #777; font-size: 13px;">© 2026 WatchAnimeWorld</div>
+    © 2026 WatchAnimeWorld
 </footer>
 
-
-
-
 <script>
-let currentEpisode = 1;
-let currentAnime = "";
 let hls = null;
 
-const animeEpisodes = {
-    "One Piece": { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "" },
-    "Naruto": {
-        // بەستەرەکەی MovieBox لێرە کار دەکات چونکە وەک iframe مامەڵەی لەگەڵ دەکات
-        1: "https://fuckme.dragonballzfans.xyz/09b74c9ce23eb2a295b78f6bd25070c1/ab51aedd15f6ff2551bc14626fc8b117.m3u8",
-        2: "", 3: "", 4: "", 5: "", 6: ""
-    },
-    "Attack on Titan": { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "" },
-    "Jujutsu Kaisen": { 1: "https://fuckme.dragonballzfans.xyz/3f43699c76040bd9e01f93d5b529a565/0ac66bcb98a0b96dce7e07c383d5723a.m3u8", 2: "https://fuckme.dragonballzfans.xyz/3d94feb460d12a66ce32cbd22ff5a28c/f65ac18a209ef7f5e89a8b42c7ec5cd1.m3u8", 3: "https://fuckme.dragonballzfans.xyz/8ead55c911a24c4cd534764859cdb2b8/6e86bd85752ec30f784dee7ea042c644.m3u8", 4: "https://fuckme.dragonballzfans.xyz/da0c8982b57e4fdb9a515eff930961a7/b25abb11d5c1517959b7303c0f13ea8c.m3u8", 5: "https://fuckme.dragonballzfans.xyz/d8e107528866a786d197bd4f74491e7d/5486a95a4b071595ed5a1479beaeee99.m3u8", 6: "https://fuckme.dragonballzfans.xyz/d0ac9072073a0029dc0e32bebd5bdcf3/71c530587c7b66dbf42a71d42c48b599.m3u8" },
-    "Demon Slayer": { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "" },
-    "Dragon Ball": { 1: "", 2: "", 3: "", 4: "", 5: "", 6: "" }
+// بەستەری فیلمەکان لێرە بنووسە
+const movieLinks = {
+    "Dragon Ball Super: Broly": "https://fuckme.dragonballzfans.xyz/3d94feb460d12a66ce32cbd22ff5a28c/f65ac18a209ef7f5e89a8b42c7ec5cd1.m3u8",
+    "Your Name": "",
+    "Spirited Away": ""
 };
 
 const search = document.getElementById("search");
@@ -249,30 +158,38 @@ search.addEventListener("input", function(){
     });
 });
 
-function openAnime(name){
-    currentAnime = name;
-    currentEpisode = 1;
+function openMovie(name){
     document.getElementById("home").style.display = "none";
     document.getElementById("details").style.display = "block";
-    document.getElementById("animeTitle").textContent = name;
-    document.getElementById("player").style.display = "none";
-    document.querySelectorAll(".episode").forEach(b => b.classList.remove("active"));
+    document.getElementById("movieTitle").textContent = name;
+    
+    const url = movieLinks[name] || "";
+    loadVideo(url);
     window.scrollTo(0,0);
 }
 
 function loadVideo(url) {
     const mediaBox = document.getElementById("mediaBox");
     if (hls) { hls.destroy(); hls = null; }
-    mediaBox.innerHTML = ""; // خاوێنکردنەوەی ناوی mediaBox
+    mediaBox.innerHTML = "";
 
-    if (!url) return;
+    if (!url) {
+        mediaBox.innerHTML = "<p style='padding:20px; text-align:center;'>بەستەری ئەم فیلمە هێشتا بەردەست نییە!</p>";
+        return;
+    }
 
-    // ئەگەر بەستەری ڕاستەوخۆی MP4 بوو
-    if (url.endsWith(".mp4")) {
+    if (Hls.isSupported() && url.endsWith(".m3u8")) {
+        mediaBox.innerHTML = `<video id="videoPlayer" controls playsinline></video>`;
+        const video = document.getElementById("videoPlayer");
+        hls = new Hls();
+        hls.loadSource(url);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function () { video.play().catch(()=>{}); });
+    } 
+    else if (url.endsWith(".mp4")) {
         mediaBox.innerHTML = `<video id="videoPlayer" controls playsinline src="${url}"></video>`;
         document.getElementById("videoPlayer").play().catch(()=>{});
     } 
-    // ئەگەر بەستەری دەرەکی بوو (وەک MovieBox یان فایلی HLS کە کێشەی CORS هەیە)
     else {
         mediaBox.innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay"></iframe>`;
     }
@@ -286,33 +203,6 @@ function showHome(){
     if (hls) { hls.destroy(); hls = null; }
     window.scrollTo(0,0);
 }
-
-function playEpisode(number){
-    currentEpisode = number;
-    const player = document.getElementById("player");
-    const title = document.getElementById("videoTitle");
-    const url = animeEpisodes[currentAnime]?.[number] || "";
-
-    if (!url) {
-        document.getElementById("mediaBox").innerHTML = "";
-        player.style.display = "none";
-        alert("ئەم ئەڵقەیە بەستەری بۆ دانەنراوە!");
-        return;
-    }
-
-    player.style.display = "block";
-    title.textContent = currentAnime + " - Episode " + number;
-    loadVideo(url);
-
-    document.querySelectorAll(".episode").forEach(b => b.classList.remove("active"));
-    const activeBtn = document.querySelectorAll(".episode")[number-1];
-    if (activeBtn) activeBtn.classList.add("active");
-
-    player.scrollIntoView({ behavior:"smooth" });
-}
-
-function nextEpisode(){ if(currentEpisode < 6) playEpisode(currentEpisode + 1); }
-function previousEpisode(){ if(currentEpisode > 1) playEpisode(currentEpisode - 1); }
 </script>
 
 </body>
