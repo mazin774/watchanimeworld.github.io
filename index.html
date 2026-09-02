@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WatchAnimeWorld - Movies</title>
+<title>WatchAnimeWorld</title>
 
 <style>
 *{ box-sizing:border-box; margin:0; padding:0; }
@@ -54,51 +54,51 @@ footer{ text-align:center; padding:30px; margin-top:30px; background:#12121b; co
 <body>
 
 <header>
-<div class="logo">Watch<span>AnimeWorld</span></div>
+<div class="logo">Watch<span>Anime</span></div>
 <nav>
 <a href="#" onclick="showHome()">Home</a>
-<a href="#movies" onclick="showHome()">Movies</a>
+<a href="#anime" onclick="showHome()">Anime List</a>
 </nav>
 </header>
 
 <div id="home">
 <div class="hero">
-<h1>Watch Anime Movies</h1>
-<p>Enjoy full anime movies in high quality.</p>
-<input id="search" class="search" type="text" placeholder="Search movies...">
+<h1>Watch Anime Online</h1>
+<p>Stream your favorite anime series for free in HD quality.</p>
+<input id="search" class="search" type="text" placeholder="Search anime...">
 </div>
 
-<section id="movies">
-<h2 class="title">🎬 Popular Movies</h2>
+<section id="anime">
+<h2 class="title">🔥 Trending Anime</h2>
 <div class="grid">
 
-<div class="anime" data-name="Dragon Ball Super: Broly">
-<div class="poster"><img src="Dragonball.jpg" alt="Dragon Ball Super: Broly"></div>
+<div class="anime" data-name="Naruto">
+<div class="poster"><img src="Naruto.jpg" alt="Naruto"></div>
 <div class="info">
-<h3>Dragon Ball Super: Broly</h3>
-<div class="rating">⭐ 7.8</div>
-<div class="genre">Action • Fantasy</div>
-<button class="watch-btn" onclick="openMovie('Dragon Ball Super: Broly')">▶ Watch Movie</button>
+<h3>Naruto</h3>
+<div class="rating">⭐ 8.3</div>
+<div class="genre">Action • Ninja</div>
+<button class="watch-btn" onclick="openAnime('Naruto')">Watch Now</button>
 </div>
 </div>
 
-<div class="anime" data-name="Your Name">
-<div class="poster"><img src="Yourname.jpg" alt="Your Name"></div>
+<div class="anime" data-name="Dragon Ball">
+<div class="poster"><img src="Dragonball.jpg" alt="Dragon Ball"></div>
 <div class="info">
-<h3>Your Name</h3>
-<div class="rating">⭐ 8.4</div>
-<div class="genre">Romance • Drama</div>
-<button class="watch-btn" onclick="openMovie('Your Name')">▶ Watch Movie</button>
+<h3>Dragon Ball</h3>
+<div class="rating">⭐ 8.5</div>
+<div class="genre">Action • Adventure</div>
+<button class="watch-btn" onclick="openAnime('Dragon Ball')">Watch Now</button>
 </div>
 </div>
 
-<div class="anime" data-name="Spirited Away">
-<div class="poster"><img src="Spiritedaway.jpg" alt="Spirited Away"></div>
+<div class="anime" data-name="One Piece">
+<div class="poster"><img src="Onepiece.jpg" alt="One Piece"></div>
 <div class="info">
-<h3>Spirited Away</h3>
-<div class="rating">⭐ 8.6</div>
-<div class="genre">Adventure • Fantasy</div>
-<button class="watch-btn" onclick="openMovie('Spirited Away')">▶ Watch Movie</button>
+<h3>One Piece</h3>
+<div class="rating">⭐ 8.9</div>
+<div class="genre">Action • Pirate</div>
+<button class="watch-btn" onclick="openAnime('One Piece')">Watch Now</button>
 </div>
 </div>
 
@@ -108,9 +108,9 @@ footer{ text-align:center; padding:30px; margin-top:30px; background:#12121b; co
 
 <section id="details">
 <div class="details-box">
-<span class="back" onclick="showHome()">← Back to Movies</span>
-<h1 id="movieTitle" class="details-title">Movie Title</h1>
-<p class="description">Click below to start playing the movie.</p>
+<span class="back" onclick="showHome()">← Back</span>
+<h1 id="animeTitle" class="details-title">Anime Title</h1>
+<p id="animeDesc" class="description">Enjoy watching the full anime movie.</p>
 
 <div class="media-container" id="mediaBox"></div>
 </div>
@@ -138,12 +138,13 @@ footer{ text-align:center; padding:30px; margin-top:30px; background:#12121b; co
 </footer>
 
 <script>
+let currentAnime = "";
 let hls = null;
 
-const movieLinks = {
-    "Dragon Ball Super: Broly": "https://fuckme.dragonballzfans.xyz/3d94feb460d12a66ce32cbd22ff5a28c/f65ac18a209ef7f5e89a8b42c7ec5cd1.m3u8",
-    "Your Name": "",
-    "Spirited Away": ""
+const animeEpisodes = {
+    "Naruto": "",
+    "Dragon Ball": "https://fuckme.dragonballzfans.xyz/3d94feb460d12a66ce32cbd22ff5a28c/f65ac18a209ef7f5e89a8b42c7ec5cd1.m3u8",
+    "One Piece": ""
 };
 
 const search = document.getElementById("search");
@@ -157,12 +158,13 @@ search.addEventListener("input", function(){
     });
 });
 
-function openMovie(name){
+function openAnime(name){
+    currentAnime = name;
     document.getElementById("home").style.display = "none";
     document.getElementById("details").style.display = "block";
-    document.getElementById("movieTitle").textContent = name;
+    document.getElementById("animeTitle").textContent = name;
     
-    const url = movieLinks[name] || "";
+    const url = animeEpisodes[name] || "";
     loadVideo(url);
     window.scrollTo(0,0);
 }
@@ -173,7 +175,7 @@ function loadVideo(url) {
     mediaBox.innerHTML = "";
 
     if (!url) {
-        mediaBox.innerHTML = "<p style='padding:20px; text-align:center; color:#aaa;'>The link for this movie is not available yet!</p>";
+        mediaBox.innerHTML = "<p style='padding:20px; text-align:center; color:#aaa;'>The link for this video is not available yet!</p>";
         return;
     }
 
