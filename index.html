@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WatchAnimeMovies</title>
+<title>WatchAnimeWorld - Movies</title>
 
 <style>
 *{ box-sizing:border-box; margin:0; padding:0; }
@@ -54,7 +54,7 @@ footer{ text-align:center; padding:30px; margin-top:30px; background:#12121b; co
 <body>
 
 <header>
-<div class="logo">Watch<span>Movies</span></div>
+<div class="logo">Watch<span>AnimeWorld</span></div>
 <nav>
 <a href="#" onclick="showHome()">Home</a>
 <a href="#movies" onclick="showHome()">Movies</a>
@@ -140,7 +140,6 @@ footer{ text-align:center; padding:30px; margin-top:30px; background:#12121b; co
 <script>
 let hls = null;
 
-// بەستەری فیلمەکان لێرە بنووسە
 const movieLinks = {
     "Dragon Ball Super: Broly": "https://fuckme.dragonballzfans.xyz/3d94feb460d12a66ce32cbd22ff5a28c/f65ac18a209ef7f5e89a8b42c7ec5cd1.m3u8",
     "Your Name": "",
@@ -174,7 +173,7 @@ function loadVideo(url) {
     mediaBox.innerHTML = "";
 
     if (!url) {
-        mediaBox.innerHTML = "<p style='padding:20px; text-align:center;'>بەستەری ئەم فیلمە هێشتا بەردەست نییە!</p>";
+        mediaBox.innerHTML = "<p style='padding:20px; text-align:center; color:#aaa;'>The link for this movie is not available yet!</p>";
         return;
     }
 
