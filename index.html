@@ -107,9 +107,9 @@ const TMDB_API_KEY = "7ddf0f77a2643442a53c286ea8391a81";
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
 const animeList = [
-    { tmdbId: 1084242, url: "https://fuckme.dragonballzfans.xyz/11abc69bb14e1ce94c5c2284e6d71619/164cc7ac38d81ad555676b3e921e118c.m3u8" },
-    { tmdbId: 269149,  url: "https://fuckme.dragonballzfans.xyz/4ed0a5b0e612a69f0f80ce4ad1337df1/2729a8e62ad97c5bc841722b33597569.m3u8" },
-    { tmdbId: 980431, url: "https://fuckme.dragonballzfans.xyz/8476111ce1283036af4e67f8da549cb5/f693e2a5a468d59e1ac04ebacb58e27e.m3u8" }
+    { tmdbId: 1022789, url: "https://fuckme.dragonballzfans.xyz/11abc69bb14e1ce94c5c2284e6d71619/164cc7ac38d81ad555676b3e921e118c.m3u8" },
+    { tmdbId: 268896,  url: "https://fuckme.dragonballzfans.xyz/4ed0a5b0e612a69f0f80ce4ad1337df1/2729a8e62ad97c5bc841722b33597569.m3u8" },
+    { tmdbId: 1214481, url: "https://fuckme.dragonballzfans.xyz/8476111ce1283036af4e67f8da549cb5/f693e2a5a468d59e1ac04ebacb58e27e.m3u8" }
 ];
 
 let fetchedMovies = {};
@@ -143,6 +143,74 @@ async function loadMovies() {
         }
     }
 }
+
+function openAnime(tmdbId) {
+    const movie = fetchedMovies[tmdbId];
+    if (!movie) return;
+
+    document.getElementById("home").style.display = "none";
+    document.getElementById("details").style.display = "block";
+    document.getElementById("animeTitle").textContent = movie.title;
+    document.getElementById("movieDesc").textContent = movie.overview || "No description available.";
+    
+    const hours = Math.floor(movie.runtime / 60);
+    const mins = movie.runtime % 60;
+    document.getElementById("movieRuntime").textContent = `${hours}h ${mins}m`;
+
+    document.getElementById("movieProduction").textContent = movie.production_companies.map(c => c.name).join(", ") || "N/A";
+
+    const genreBox = document.getElementById("movieGenres");
+    genreBox.innerHTML = movie.genres.map(g => `<span class="tag">${g.name}</span>`).join("");
+
+    loadVideo(movie.videoUrl);
+    window.scrollTo(0, 0);
+}
+
+function loadVideo(url) {
+    const mediaBox = document.getElementById("mediaBox");
+    if (hls) { hls.destroy(); hls = null; }
+    mediaBox.innerHTML = "";
+
+    if (!url) {
+        mediaBox.innerHTML = "<p style='padding:20px; text-align:center;'>Video link unavailable</p>";
+        return;
+    }
+
+    if (Hls.isSupported() && url.endsWith(".m3u8")) {
+        mediaBox.innerHTML = `<video id="videoPlayer" controls playsinline crossorigin="anonymous"></video>`;
+        const video = document.getElementById("videoPlayer");
+        
+        // 🛠️ چالاککردنی پشتیگیری ژێرنووسی ناو HLS
+        hls = new Hls({
+            renderTextTracksNatively: true,
+            subtitlePreference: { lang: 'en' }
+        });
+
+        hls.loadSource(url);
+        hls.attachMedia(video);
+        
+        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+            // ئەگەر ژێرنووس هەبوو، یەکەم ژێرنووس بە ئۆتۆماتیک چالاک بکە
+            if (hls.subtitleTracks.length > 0) {
+                hls.subtitleTrack = 0;
+            }
+            video.play().catch(()=>{});
+        });
+    } else {
+        mediaBox.innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay"></iframe>`;
+    }
+}
+
+function showHome() {
+    document.getElementById("details").style.display = "none";
+    document.getElementById("home").style.display = "block";
+    document.getElementById("mediaBox").innerHTML = "";
+    if (hls) { hls.destroy(); hls = null; }
+    window.scrollTo(0, 0);
+}
+
+loadMovies();
+
 
 function openAnime(tmdbId) {
     const movie = fetchedMovies[tmdbId];
