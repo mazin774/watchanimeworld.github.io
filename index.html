@@ -3,49 +3,214 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WatchAnimeWorld - API Powered</title>
+<title>WatchAnimeWorld - Premium Streaming</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-*{ box-sizing:border-box; margin:0; padding:0; }
-body{ background:#09090f; color:#fff; font-family:Arial,sans-serif; }
-header{ background:#12121b; padding:18px 6%; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #252532; }
-.logo{ font-size:25px; font-weight:bold; }
-.logo span{ color:#ff3d71; }
-nav a{ color:#ddd; text-decoration:none; margin-left:20px; }
-.hero{ padding:70px 6%; background:linear-gradient(135deg,#191927,#28121e); }
-.hero h1{ font-size:43px; margin-bottom:12px; }
-.hero p{ color:#aaa; margin-bottom:25px; }
-.search{ width:100%; max-width:600px; padding:16px; border:0; border-radius:8px; font-size:16px; outline:none; }
-section{ padding:45px 6%; }
-.title{ font-size:26px; margin-bottom:25px; }
-.grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:22px; }
-.anime{ background:#15151f; border-radius:12px; overflow:hidden; transition:.25s; }
-.anime:hover{ transform:translateY(-7px); box-shadow:0 10px 30px rgba(0,0,0,.4); }
-.poster{ height:270px; background:#272735; overflow:hidden; }
-.poster img{ width:100%; height:100%; object-fit:cover; display:block; }
-.info{ padding:14px; }
-.info h3{ font-size:16px; margin-bottom:8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.rating{ color:#ffc107; margin-bottom:10px; font-size:14px; }
-.watch-btn{ display:block; width:100%; padding:11px; text-align:center; background:#ff3d71; color:white; border:0; border-radius:7px; font-weight:bold; cursor:pointer; }
-.watch-btn:hover{ background:#ff1f5b; }
-#details{ display:none; }
-.details-box{ background:#15151f; border-radius:14px; padding:30px; max-width:1000px; margin:auto; }
-.back{ display:inline-block; margin-bottom:25px; color:#ff3d71; cursor:pointer; }
-.details-title{ font-size:32px; margin-bottom:10px; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { 
+    background-color: #0d0e12; 
+    color: #f3f4f6; 
+    font-family: 'Inter', sans-serif; 
+    line-height: 1.5;
+}
 
-.overview-sec { margin-top: 25px; border-top: 1px solid #252532; padding-top: 20px; }
-.overview-title { font-size: 20px; margin-bottom: 15px; }
-.overview-desc { color: #ccc; line-height: 1.7; font-size: 15px; margin-bottom: 20px; }
-.info-group { margin-bottom: 15px; }
-.info-label { color: #888; font-size: 14px; margin-bottom: 5px; }
-.info-value { color: #fff; font-size: 15px; }
-.tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 5px; }
-.tag { background: #252532; padding: 5px 12px; border-radius: 6px; font-size: 13px; color: #ddd; }
+/* Header UI */
+header { 
+    background: rgba(18, 20, 29, 0.8); 
+    backdrop-filter: blur(12px);
+    padding: 18px 8%; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.logo { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
+.logo span { color: #ff3d71; }
+nav a { 
+    color: #9ca3af; 
+    text-decoration: none; 
+    margin-left: 28px; 
+    font-weight: 600;
+    font-size: 15px;
+    transition: color 0.3s;
+}
+nav a:hover { color: #ffffff; }
 
-.media-container { width: 100%; height: 500px; background: #000; border-radius: 10px; overflow: hidden; margin-top: 20px; }
+/* Hero Section */
+.hero { 
+    padding: 90px 8% 60px; 
+    background: radial-gradient(circle at top right, rgba(255, 61, 113, 0.15), transparent 40%),
+                radial-gradient(circle at top left, rgba(30, 27, 75, 0.4), transparent 50%);
+    text-align: center;
+}
+.hero h1 { 
+    font-size: 48px; 
+    font-weight: 800;
+    margin-bottom: 16px; 
+    background: linear-gradient(135deg, #ffffff 0%, #9ca3af 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.hero p { color: #9ca3af; margin-bottom: 35px; font-size: 17px; }
+.search-container {
+    position: relative;
+    max-width: 550px;
+    margin: 0 auto;
+}
+.search { 
+    width: 100%; 
+    padding: 18px 24px; 
+    border: 1px solid rgba(255, 255, 255, 0.12); 
+    border-radius: 14px; 
+    font-size: 15px; 
+    outline: none; 
+    background: rgba(21, 23, 35, 0.7);
+    color: #fff;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+.search:focus {
+    border-color: #ff3d71;
+    box-shadow: 0 0 20px rgba(255, 61, 113, 0.25);
+}
+
+/* Movie Grid */
+section { padding: 40px 8%; }
+.title { 
+    font-size: 22px; 
+    font-weight: 700; 
+    margin-bottom: 28px; 
+    letter-spacing: -0.3px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.title::before {
+    content: '';
+    width: 4px;
+    height: 22px;
+    background: #ff3d71;
+    border-radius: 2px;
+}
+.grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+    gap: 28px; 
+}
+.anime { 
+    background: #151723; 
+    border-radius: 16px; 
+    overflow: hidden; 
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+}
+.anime:hover { 
+    transform: translateY(-8px); 
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.6); 
+    border-color: rgba(255, 61, 113, 0.4);
+}
+.poster { 
+    height: 300px; 
+    background: #1e202e; 
+    overflow: hidden; 
+    position: relative;
+}
+.poster img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    display: block; 
+    transition: transform 0.5s ease;
+}
+.anime:hover .poster img {
+    transform: scale(1.06);
+}
+.info { padding: 16px; }
+.info h3 { 
+    font-size: 15px; 
+    font-weight: 600;
+    margin-bottom: 6px; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+}
+.rating { 
+    color: #fbbf24; 
+    margin-bottom: 14px; 
+    font-size: 13px; 
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.watch-btn { 
+    display: block; 
+    width: 100%; 
+    padding: 12px; 
+    text-align: center; 
+    background: linear-gradient(135deg, #ff3d71, #e02e5e); 
+    color: white; 
+    border: 0; 
+    border-radius: 10px; 
+    font-weight: 700; 
+    font-size: 14px;
+    cursor: pointer; 
+    transition: all 0.3s ease;
+}
+.watch-btn:hover { 
+    opacity: 0.9;
+    box-shadow: 0 4px 15px rgba(255, 61, 113, 0.4);
+}
+
+/* Details View */
+#details { display: none; }
+.details-box { 
+    background: #151723; 
+    border-radius: 20px; 
+    padding: 35px; 
+    max-width: 1000px; 
+    margin: auto; 
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.back { 
+    display: inline-flex; 
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 25px; 
+    color: #ff3d71; 
+    font-weight: 600;
+    cursor: pointer; 
+    transition: transform 0.2s;
+}
+.back:hover { transform: translateX(-4px); }
+.details-title { font-size: 34px; font-weight: 800; margin-bottom: 15px; }
+
+.media-container { 
+    width: 100%; 
+    height: 520px; 
+    background: #000; 
+    border-radius: 14px; 
+    overflow: hidden; 
+    margin-top: 20px; 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+}
 video, iframe { width: 100%; height: 100%; border: 0; display: block; }
 
-footer{ text-align:center; padding:30px; margin-top:30px; background:#12121b; color:#777; }
+.overview-sec { margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 25px; }
+.overview-title { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+.overview-desc { color: #9ca3af; line-height: 1.8; font-size: 15px; margin-bottom: 25px; }
+.info-group { margin-bottom: 18px; }
+.info-label { color: #6b7280; font-size: 13px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 4px; }
+.info-value { color: #e5e7eb; font-size: 15px; }
+.tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+.tag { background: rgba(255,255,255,0.06); padding: 6px 14px; border-radius: 8px; font-size: 13px; color: #d1d5db; border: 1px solid rgba(255,255,255,0.05); }
+
+footer { text-align: center; padding: 40px; margin-top: 50px; background: #090a0d; color: #4b5563; font-size: 14px; border-top: 1px solid rgba(255,255,255,0.05); }
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
@@ -62,20 +227,22 @@ footer{ text-align:center; padding:30px; margin-top:30px; background:#12121b; co
 
 <div id="home">
 <div class="hero">
-<h1>Watch Movies Online</h1>
-<p>Stream automatically updated movies instantly.</p>
-<input id="search" class="search" type="text" placeholder="Search...">
+<h1>Unlimited Movies & Anime</h1>
+<p>Stream high-quality content updated dynamically.</p>
+<div class="search-container">
+    <input id="search" class="search" type="text" placeholder="Search for movies...">
+</div>
 </div>
 
 <section id="anime">
-<h2 class="title">Trending Movies</h2>
+<h2 class="title">Trending Now</h2>
 <div class="grid" id="movieGrid"></div>
 </section>
 </div>
 
 <section id="details">
 <div class="details-box">
-<span class="back" onclick="showHome()">← Back</span>
+<span class="back" onclick="showHome()">← Back to Home</span>
 <h1 id="animeTitle" class="details-title">Loading...</h1>
 
 <div class="media-container" id="mediaBox"></div>
@@ -102,6 +269,10 @@ footer{ text-align:center; padding:30px; margin-top:30px; background:#12121b; co
 </div>
 </section>
 
+<footer>
+    <p>&copy; 2026 WatchAnimeWorld. All rights reserved.</p>
+</footer>
+
 <script>
 const TMDB_API_KEY = "7ddf0f77a2643442a53c286ea8391a81"; 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
@@ -109,8 +280,8 @@ const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 const animeList = [
     { tmdbId: 1084242, url: "https://fuckme.dragonballzfans.xyz/11abc69bb14e1ce94c5c2284e6d71619/164cc7ac38d81ad555676b3e921e118c.m3u8" },
     { tmdbId: 269149,  url: "https://fuckme.dragonballzfans.xyz/4ed0a5b0e612a69f0f80ce4ad1337df1/2729a8e62ad97c5bc841722b33597569.m3u8" },
-    {tmdbId: 1007757, url: "https://fuckme.dragonballzfans.xyz/8476111ce1283036af4e67f8da549cb5/f693e2a5a468d59e1ac04ebacb58e27e.m3u8" },
-    {tmdbId: 980431, url: "https://fuckme.dragonballzfans.xyz/a9a9b21bcebf0a1b9c6e76a4684df1c3/19a937ea66c4600b694889257b6239c7.m3u8" }
+    { tmdbId: 1007757, url: "https://fuckme.dragonballzfans.xyz/8476111ce1283036af4e67f8da549cb5/f693e2a5a468d59e1ac04ebacb58e27e.m3u8" },
+    { tmdbId: 980431,  url: "https://fuckme.dragonballzfans.xyz/a9a9b21bcebf0a1b9c6e76a4684df1c3/19a937ea66c4600b694889257b6239c7.m3u8" }
 ];
 
 let fetchedMovies = {};
@@ -134,7 +305,7 @@ async function loadMovies() {
                     <div class="poster"><img src="${posterImg}" alt="${data.title}"></div>
                     <div class="info">
                         <h3>${data.title}</h3>
-                        <div class="rating">★ ${data.vote_average.toFixed(1)}</div>
+                        <div class="rating">★ ${data.vote_average ? data.vote_average.toFixed(1) : 'N/A'}</div>
                         <button class="watch-btn" onclick="openAnime(${item.tmdbId})">Watch Now</button>
                     </div>
                 </div>
@@ -158,10 +329,10 @@ function openAnime(tmdbId) {
     const mins = movie.runtime % 60;
     document.getElementById("movieRuntime").textContent = `${hours}h ${mins}m`;
 
-    document.getElementById("movieProduction").textContent = movie.production_companies.map(c => c.name).join(", ") || "N/A";
+    document.getElementById("movieProduction").textContent = movie.production_companies ? movie.production_companies.map(c => c.name).join(", ") : "N/A";
 
     const genreBox = document.getElementById("movieGenres");
-    genreBox.innerHTML = movie.genres.map(g => `<span class="tag">${g.name}</span>`).join("");
+    genreBox.innerHTML = movie.genres ? movie.genres.map(g => `<span class="tag">${g.name}</span>`).join("") : "";
 
     loadVideo(movie.videoUrl);
     window.scrollTo(0, 0);
@@ -213,3 +384,4 @@ loadMovies();
 
 </body>
 </html>
+
