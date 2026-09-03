@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WatchAnimeWorld</title>
+<title>WatchAnimeWorld - API Powered</title>
 
 <style>
 *{ box-sizing:border-box; margin:0; padding:0; }
@@ -12,7 +12,6 @@ header{ background:#12121b; padding:18px 6%; display:flex; justify-content:space
 .logo{ font-size:25px; font-weight:bold; }
 .logo span{ color:#ff3d71; }
 nav a{ color:#ddd; text-decoration:none; margin-left:20px; }
-nav a:hover{ color:#ff3d71; }
 .hero{ padding:70px 6%; background:linear-gradient(135deg,#191927,#28121e); }
 .hero h1{ font-size:43px; margin-bottom:12px; }
 .hero p{ color:#aaa; margin-bottom:25px; }
@@ -25,9 +24,8 @@ section{ padding:45px 6%; }
 .poster{ height:270px; background:#272735; overflow:hidden; }
 .poster img{ width:100%; height:100%; object-fit:cover; display:block; }
 .info{ padding:14px; }
-.info h3{ font-size:17px; margin-bottom:8px; }
-.rating{ color:#ffc107; margin-bottom:10px; }
-.genre{ color:#999; font-size:13px; margin-bottom:14px; }
+.info h3{ font-size:16px; margin-bottom:8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.rating{ color:#ffc107; margin-bottom:10px; font-size:14px; }
 .watch-btn{ display:block; width:100%; padding:11px; text-align:center; background:#ff3d71; color:white; border:0; border-radius:7px; font-weight:bold; cursor:pointer; }
 .watch-btn:hover{ background:#ff1f5b; }
 #details{ display:none; }
@@ -35,9 +33,8 @@ section{ padding:45px 6%; }
 .back{ display:inline-block; margin-bottom:25px; color:#ff3d71; cursor:pointer; }
 .details-title{ font-size:32px; margin-bottom:10px; }
 
-/* --- Overview Styling --- */
 .overview-sec { margin-top: 25px; border-top: 1px solid #252532; padding-top: 20px; }
-.overview-title { font-size: 20px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+.overview-title { font-size: 20px; margin-bottom: 15px; }
 .overview-desc { color: #ccc; line-height: 1.7; font-size: 15px; margin-bottom: 20px; }
 .info-group { margin-bottom: 15px; }
 .info-label { color: #888; font-size: 14px; margin-bottom: 5px; }
@@ -49,13 +46,6 @@ section{ padding:45px 6%; }
 video, iframe { width: 100%; height: 100%; border: 0; display: block; }
 
 footer{ text-align:center; padding:30px; margin-top:30px; background:#12121b; color:#777; }
-
-@media(max-width:600px){
-    .hero h1{ font-size:31px; }
-    .grid{ grid-template-columns:repeat(2,1fr); gap:12px; }
-    .poster{ height:230px; }
-    .media-container { height: 260px; }
-}
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
@@ -64,200 +54,113 @@ footer{ text-align:center; padding:30px; margin-top:30px; background:#12121b; co
 
 <header>
 <div class="logo">Watch<span>Anime</span></div>
-<nav>
-<a href="#" onclick="showHome()">Home</a>
-<a href="#anime" onclick="showHome()">Anime List</a>
-</nav>
+<nav><a href="#" onclick="showHome()">Home</a></nav>
 </header>
 
 <div id="home">
 <div class="hero">
-<h1>Watch Anime Online</h1>
-<p>Stream your favorite anime series for free in HD quality.</p>
-<input id="search" class="search" type="text" placeholder="Search anime...">
+<h1>Watch Movies Online</h1>
+<p>Stream automatically updated movies instantly.</p>
+<input id="search" class="search" type="text" placeholder="Search...">
 </div>
 
 <section id="anime">
-<h2 class="title">🔥 Trending Anime</h2>
-<div class="grid">
-
-<div class="anime" data-name="Zootopia2">
-<div class="poster"><img src="Zootopia2.jpg" alt="Zootopia2"></div>
-<div class="info">
-<h3>Zootopia2</h3>
-<div class="rating">⭐ 7.3</div>
-<div class="genre">Animation • adventure • Comedy • Mystery • Family </div>
-<button class="watch-btn" onclick="openAnime('Zootopia2')">Watch Now</button>
-</div>
-</div>
-
-<div class="anime" data-name="Swapped">
-<div class="poster"><img src="Swapped.jpg" alt="Swapped"></div>
-<div class="info">
-<h3>Swapped</h3>
-<div class="rating">⭐ none</div>
-<div class="genre">animation • Adventure • Family • fantasy </div>
-<button class="watch-btn" onclick="openAnime('Swapped')">Watch Now</button>
-</div>
-</div>
-
-<div class="anime" data-name="Zootopia">
-<div class="poster"><img src="Zootopia.jpg" alt="Zootopia"></div>
-<div class="info">
-<h3>Zotopia</h3>
-<div class="rating">⭐ 8.6</div>
-<div class="genre">Animation • Adventure • Family • Comedy </div>
-<button class="watch-btn" onclick="openAnime('Zootopia')">Watch Now</button>
-</div>
-</div>
-
- <div class="anime" data-name="Avatar Aang: The last Airbender">
-<div class="poster"><img src="Avatar Aang: The last Airbender.jpg" alt="Avatar Aang: The last Airbender"></div>
-<div class="info">
-<h3>Avatar Aang: The last Airbender</h3>
-<div class="rating">⭐ 9.2</div>
-<div class="genre">Animation • Adventure • Action • Fantasy </div>
-<button class="watch-btn" onclick="openAnime('Avatar Aang: The last Airbender')">Watch Now</button>
-</div>
-</div>
-
-
-</div>
+<h2 class="title">Trending Movies</h2>
+<div class="grid" id="movieGrid"></div>
 </section>
 </div>
 
 <section id="details">
 <div class="details-box">
 <span class="back" onclick="showHome()">← Back</span>
-<h1 id="animeTitle" class="details-title">Anime Title</h1>
+<h1 id="animeTitle" class="details-title">Loading...</h1>
 
 <div class="media-container" id="mediaBox"></div>
 
 <div class="overview-sec">
-    <div class="overview-title">ℹ️ Overview</div>
-    <p id="movieDesc" class="overview-desc">Movie description goes here...</p>
+    <div class="overview-title">Overview</div>
+    <p id="movieDesc" class="overview-desc">Loading description...</p>
 
     <div class="info-group">
-        <div class="info-label">Runtime:</div>
-        <div class="info-value" id="movieRuntime">1h 42m</div>
+        <div class="info-label">Runtime</div>
+        <div class="info-value" id="movieRuntime">-</div>
     </div>
 
     <div class="info-group">
         <div class="info-label">Genres</div>
-        <div class="tags" id="movieGenres">
-            </div>
+        <div class="tags" id="movieGenres"></div>
     </div>
 
     <div class="info-group">
         <div class="info-label">Production</div>
-        <div class="info-value" id="movieProduction">Studio Name</div>
-    </div>
-
-    <div class="info-group">
-        <div class="info-label">Languages</div>
-        <div class="info-value" id="movieLanguage">Japanese / English</div>
+        <div class="info-value" id="movieProduction">-</div>
     </div>
 </div>
-
 </div>
 </section>
 
-<footer>
-    <div style="
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        background: rgba(21, 21, 31, 0.75);
-        backdrop-filter: blur(10px);
-        padding: 10px 22px;
-        border-radius: 30px;
-        border: 1px solid rgba(255, 61, 113, 0.3);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 61, 113, 0.15);
-        margin-bottom: 18px;
-    ">
-        <span style="display: inline-block; width: 10px; height: 10px; background-color: #00ff88; border-radius: 50%; box-shadow: 0 0 10px #00ff88;"></span>
-        <span style="font-size: 14px; font-weight: bold; color: #e1e1e1;">Total Visitors</span>
-        <img src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fmazin774.github.io%2Fwatchanimeworld.github.io%2F&label=&icon=github&color=%23ff3d71&message=&style=flat&tz=UTC" alt="Views Counter" style="border-radius: 6px; display: block;">
-    </div>
-    <br>
-    © 2026 WatchAnimeWorld
-</footer>
-
 <script>
-let currentAnime = "";
+const TMDB_API_KEY = "7ddf0f77a2643442a53c286ea8391a81"; 
+const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+
+const animeList = [
+    { tmdbId: 1022789, url: "https://fuckme.dragonballzfans.xyz/11abc69bb14e1ce94c5c2284e6d71619/164cc7ac38d81ad555676b3e921e118c.m3u8" },
+    { tmdbId: 268896,  url: "https://fuckme.dragonballzfans.xyz/4ed0a5b0e612a69f0f80ce4ad1337df1/2729a8e62ad97c5bc841722b33597569.m3u8" },
+    { tmdbId: 1214481, url: "https://fuckme.dragonballzfans.xyz/8476111ce1283036af4e67f8da549cb5/f693e2a5a468d59e1ac04ebacb58e27e.m3u8" }
+];
+
+let fetchedMovies = {};
 let hls = null;
 
-// زانیاری تەواوی ئەنیمێ/فیلمەکان
-const animeData = {
-    "Zootopia2": {
-        url: "https://fuckme.dragonballzfans.xyz/11abc69bb14e1ce94c5c2284e6d71619/164cc7ac38d81ad555676b3e921e118c.m3u8",
-        desc: "After cracking the biggest case in Zootopia's history, rookie cops Judy Hopps and Nick Wilde find themselves on the twisting trail of a great mystery when Gary De'Snake arrives and turns the animal metropolis upside down. To crack the case, Judy and Nick must go undercover to unexpected new parts of town, where their growing partnership is tested like never before.",
-        runtime: "1h 48m",
-        genres: ["Animation", "Adventure", "Mystery", "Comedy", "Family"],
-        production: "Walt Disney Animation Studios",
-        language: "English"
-    },
-    "Swapped": {
-        url: "https://fuckme.dragonballzfans.xyz/8476111ce1283036af4e67f8da549cb5/f693e2a5a468d59e1ac04ebacb58e27e.m3u8",
-        desc: "A small woodland creature and a majestic bird,two natural sworn enemies of the valley, magically trade places and set off on an adventure of a lifetime to switch back. Their journey soon uncovers a greater threat——one that could endganer not only their species, but the entire valley they call home.",
-        runtime: "1h 42m",
-        genres: ["Animation", "Family", "adventure", "fantasy" ],
-        production: "skydance animation",
-        language: "English"
-    },
-    "Zootopia": {
-        url: "https://fuckme.dragonballzfans.xyz/4ed0a5b0e612a69f0f80ce4ad1337df1/2729a8e62ad97c5bc841722b33597569.m3u8",
-        desc: "Determined to prove herself, Officer Judy Hopps, the first bunny on Zootopia's police force, jumps at the chance to crack her first case - even if it means partnering with scam-artist foxNick Wilde to solve the mystery.",
-        runtime: "1h 49m",
-        genres: ["Animation", "Adventure", "Family", "Comedy"],
-        production: "Walt Disney Animation Studios",
-        language: "English"
-    },
-"Avatar Aang: The last Airbender": {
-        url: "https://fuckme.dragonballzfans.xyz/a9a9b21bcebf0a1b9c6e76a4684df1c3/19a937ea66c4600b694889257b6239c7.m3u8",
-        desc: "Avatar Aang, the world's last Airbender, learns of an ancient power that could save his culture from extinction. With the help of his friends, he embarks on a global quest to find it before it falls into the wrong hands and threatens to upend the peace they sacrificed everything to achieve.",
-        runtime: "1h 39m",
-        genres: ["Animation", "Adventure", "Action", "Fantasy"],
-        production: "Nickelodeon Movies, Paramount Pictures, Flying Bark Productions, Studio Mir, Avatar Studios",
-        language: "English"
-    },
-};
+async function loadMovies() {
+    const grid = document.getElementById("movieGrid");
+    grid.innerHTML = "";
 
-const search = document.getElementById("search");
-const animeCards = document.querySelectorAll(".anime");
+    for (let item of animeList) {
+        try {
+            const res = await fetch(`https://api.themoviedb.org/3/movie/${item.tmdbId}?api_key=${TMDB_API_KEY}`);
+            const data = await res.json();
+            
+            fetchedMovies[item.tmdbId] = { ...data, videoUrl: item.url };
 
-search.addEventListener("input", function(){
-    const text = search.value.toLowerCase().trim();
-    animeCards.forEach(card => {
-        const name = card.dataset.name.toLowerCase();
-        card.style.display = name.includes(text) ? "" : "none";
-    });
-});
+            const posterImg = data.poster_path ? IMAGE_BASE_URL + data.poster_path : '';
+            
+            grid.innerHTML += `
+                <div class="anime" data-name="${data.title}">
+                    <div class="poster"><img src="${posterImg}" alt="${data.title}"></div>
+                    <div class="info">
+                        <h3>${data.title}</h3>
+                        <div class="rating">★ ${data.vote_average.toFixed(1)}</div>
+                        <button class="watch-btn" onclick="openAnime(${item.tmdbId})">Watch Now</button>
+                    </div>
+                </div>
+            `;
+        } catch (err) {
+            console.error("Error fetching TMDB data:", err);
+        }
+    }
+}
 
-function openAnime(name){
-    currentAnime = name;
+function openAnime(tmdbId) {
+    const movie = fetchedMovies[tmdbId];
+    if (!movie) return;
+
     document.getElementById("home").style.display = "none";
     document.getElementById("details").style.display = "block";
-    document.getElementById("animeTitle").textContent = name;
+    document.getElementById("animeTitle").textContent = movie.title;
+    document.getElementById("movieDesc").textContent = movie.overview || "No description available.";
     
-    const data = animeData[name] || {};
-    
-    // پڕکردنەوەی بەشی Overview
-    document.getElementById("movieDesc").textContent = data.desc || "No description available.";
-    document.getElementById("movieRuntime").textContent = data.runtime || "N/A";
-    document.getElementById("movieProduction").textContent = data.production || "N/A";
-    document.getElementById("movieLanguage").textContent = data.language || "N/A";
-    
-    const genreBox = document.getElementById("movieGenres");
-    genreBox.innerHTML = "";
-    if (data.genres) {
-        data.genres.forEach(g => {
-            genreBox.innerHTML += `<span class="tag">${g}</span>`;
-        });
-    }
+    const hours = Math.floor(movie.runtime / 60);
+    const mins = movie.runtime % 60;
+    document.getElementById("movieRuntime").textContent = `${hours}h ${mins}m`;
 
-    loadVideo(data.url || "");
-    window.scrollTo(0,0);
+    document.getElementById("movieProduction").textContent = movie.production_companies.map(c => c.name).join(", ") || "N/A";
+
+    const genreBox = document.getElementById("movieGenres");
+    genreBox.innerHTML = movie.genres.map(g => `<span class="tag">${g.name}</span>`).join("");
+
+    loadVideo(movie.videoUrl);
+    window.scrollTo(0, 0);
 }
 
 function loadVideo(url) {
@@ -266,7 +169,7 @@ function loadVideo(url) {
     mediaBox.innerHTML = "";
 
     if (!url) {
-        mediaBox.innerHTML = "<p style='padding:20px; text-align:center; color:#aaa;'>The link for this video is not available yet!</p>";
+        mediaBox.innerHTML = "<p style='padding:20px; text-align:center;'>Video link unavailable</p>";
         return;
     }
 
@@ -276,25 +179,21 @@ function loadVideo(url) {
         hls = new Hls();
         hls.loadSource(url);
         hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, function () { video.play().catch(()=>{}); });
-    } 
-    else if (url.endsWith(".mp4")) {
-        mediaBox.innerHTML = `<video id="videoPlayer" controls playsinline src="${url}"></video>`;
-        document.getElementById("videoPlayer").play().catch(()=>{});
-    } 
-    else {
+        hls.on(Hls.Events.MANIFEST_PARSED, () => video.play().catch(()=>{}));
+    } else {
         mediaBox.innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay"></iframe>`;
     }
 }
 
-function showHome(){
+function showHome() {
     document.getElementById("details").style.display = "none";
     document.getElementById("home").style.display = "block";
-    const mediaBox = document.getElementById("mediaBox");
-    mediaBox.innerHTML = "";
+    document.getElementById("mediaBox").innerHTML = "";
     if (hls) { hls.destroy(); hls = null; }
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
 }
+
+loadMovies();
 </script>
 
 </body>
