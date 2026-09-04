@@ -3,214 +3,123 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WatchAnimeWorld - Premium Streaming</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<title>WatchAnime - Ultra Premium UI</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { 
-    background-color: #0d0e12; 
-    color: #f3f4f6; 
-    font-family: 'Inter', sans-serif; 
-    line-height: 1.5;
+    background-color: #08070b; 
+    color: #e2e8f0; 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    overflow-x: hidden;
 }
 
-/* Header UI */
+/* Glassmorphism Header */
 header { 
-    background: rgba(18, 20, 29, 0.8); 
-    backdrop-filter: blur(12px);
-    padding: 18px 8%; 
+    background: rgba(12, 10, 18, 0.75); 
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 16px 5%; 
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
+    position: fixed;
+    top: 0; width: 100%;
+    z-index: 1000;
 }
-.logo { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
-.logo span { color: #ff3d71; }
+.logo { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; color: #fff; }
+.logo span { color: #ff2a5f; }
+nav { display: flex; gap: 24px; }
 nav a { 
-    color: #9ca3af; 
+    color: #94a3b8; 
     text-decoration: none; 
-    margin-left: 28px; 
     font-weight: 600;
-    font-size: 15px;
-    transition: color 0.3s;
+    font-size: 14px;
+    transition: all 0.3s;
 }
-nav a:hover { color: #ffffff; }
+nav a:hover, nav a.active { color: #ffffff; text-shadow: 0 0 10px rgba(255, 42, 95, 0.5); }
 
-/* Hero Section */
-.hero { 
-    padding: 90px 8% 60px; 
-    background: radial-gradient(circle at top right, rgba(255, 61, 113, 0.15), transparent 40%),
-                radial-gradient(circle at top left, rgba(30, 27, 75, 0.4), transparent 50%);
-    text-align: center;
-}
-.hero h1 { 
-    font-size: 48px; 
-    font-weight: 800;
-    margin-bottom: 16px; 
-    background: linear-gradient(135deg, #ffffff 0%, #9ca3af 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-.hero p { color: #9ca3af; margin-bottom: 35px; font-size: 17px; }
-.search-container {
-    position: relative;
-    max-width: 550px;
-    margin: 0 auto;
-}
-.search { 
-    width: 100%; 
-    padding: 18px 24px; 
-    border: 1px solid rgba(255, 255, 255, 0.12); 
-    border-radius: 14px; 
-    font-size: 15px; 
-    outline: none; 
-    background: rgba(21, 23, 35, 0.7);
-    color: #fff;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-}
-.search:focus {
-    border-color: #ff3d71;
-    box-shadow: 0 0 20px rgba(255, 61, 113, 0.25);
-}
-
-/* Movie Grid */
-section { padding: 40px 8%; }
-.title { 
-    font-size: 22px; 
-    font-weight: 700; 
-    margin-bottom: 28px; 
-    letter-spacing: -0.3px;
+.nav-right { display: flex; align-items: center; gap: 18px; }
+.search-bar {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px 16px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     gap: 10px;
 }
-.title::before {
-    content: '';
-    width: 4px;
-    height: 22px;
-    background: #ff3d71;
-    border-radius: 2px;
+.search-bar input {
+    background: transparent; border: none; outline: none; color: #fff; font-size: 13px;
 }
-.grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
-    gap: 28px; 
-}
-.anime { 
-    background: #151723; 
-    border-radius: 16px; 
-    overflow: hidden; 
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-    border: 1px solid rgba(255, 255, 255, 0.05);
+
+/* Hero Featured Banner */
+.hero { 
     position: relative;
-}
-.anime:hover { 
-    transform: translateY(-8px); 
-    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.6); 
-    border-color: rgba(255, 61, 113, 0.4);
-}
-.poster { 
-    height: 300px; 
-    background: #1e202e; 
-    overflow: hidden; 
-    position: relative;
-}
-.poster img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-    display: block; 
-    transition: transform 0.5s ease;
-}
-.anime:hover .poster img {
-    transform: scale(1.06);
-}
-.info { padding: 16px; }
-.info h3 { 
-    font-size: 15px; 
-    font-weight: 600;
-    margin-bottom: 6px; 
-    white-space: nowrap; 
-    overflow: hidden; 
-    text-overflow: ellipsis; 
-}
-.rating { 
-    color: #fbbf24; 
-    margin-bottom: 14px; 
-    font-size: 13px; 
-    font-weight: 600;
+    min-height: 80vh; 
+    background: linear-gradient(180deg, rgba(8, 7, 11, 0.2) 0%, #08070b 100%),
+                url('https://image.tmdb.org/t/p/original/nTvM431s3266gB323S3B331.jpg') center/cover no-repeat;
     display: flex;
     align-items: center;
-    gap: 4px;
+    padding: 100px 5% 40px;
 }
-.watch-btn { 
-    display: block; 
-    width: 100%; 
-    padding: 12px; 
-    text-align: center; 
-    background: linear-gradient(135deg, #ff3d71, #e02e5e); 
-    color: white; 
-    border: 0; 
-    border-radius: 10px; 
-    font-weight: 700; 
-    font-size: 14px;
-    cursor: pointer; 
+.hero-content { max-width: 600px; z-index: 2; }
+.tag-line { color: #ff2a5f; font-weight: 700; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+.hero-title { font-size: 56px; font-weight: 800; line-height: 1.1; margin-bottom: 15px; }
+.hero-title span { color: #ff2a5f; }
+.hero-desc { color: #94a3b8; font-size: 15px; line-height: 1.6; margin-bottom: 25px; }
+.hero-btns { display: flex; gap: 15px; }
+.btn-primary { 
+    background: linear-gradient(135deg, #ff2a5f, #e01e4f); 
+    color: #fff; border: none; padding: 12px 28px; border-radius: 10px; font-weight: 700; cursor: pointer;
+    box-shadow: 0 8px 25px rgba(255, 42, 95, 0.4); transition: transform 0.2s;
+}
+.btn-secondary { 
+    background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px);
+    color: #fff; border: 1px solid rgba(255, 255, 255, 0.1); padding: 12px 24px; border-radius: 10px; font-weight: 600; cursor: pointer;
+}
+.btn-primary:hover, .btn-secondary:hover { transform: translateY(-2px); }
+
+/* Movie Grid */
+.section { padding: 40px 5%; }
+.section-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.section-title i { color: #ff2a5f; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
+
+.card { 
+    background: rgba(255, 255, 255, 0.02); 
+    border-radius: 14px; overflow: hidden; 
+    border: 1px solid rgba(255, 255, 255, 0.05); 
     transition: all 0.3s ease;
+    cursor: pointer;
 }
-.watch-btn:hover { 
-    opacity: 0.9;
-    box-shadow: 0 4px 15px rgba(255, 61, 113, 0.4);
-}
+.card:hover { transform: translateY(-8px); border-color: rgba(255, 42, 95, 0.4); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5); }
+.card-img { height: 260px; position: relative; overflow: hidden; }
+.card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+.card:hover .card-img img { transform: scale(1.08); }
+.card-info { padding: 12px; }
+.card-title { font-size: 14px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 6px; }
+.card-meta { display: flex; justify-content: space-between; font-size: 12px; color: #64748b; }
+.rating { color: #f59e0b; font-weight: 600; }
 
-/* Details View */
-#details { display: none; }
-.details-box { 
-    background: #151723; 
-    border-radius: 20px; 
-    padding: 35px; 
-    max-width: 1000px; 
-    margin: auto; 
-    border: 1px solid rgba(255, 255, 255, 0.08);
-}
-.back { 
-    display: inline-flex; 
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 25px; 
-    color: #ff3d71; 
-    font-weight: 600;
-    cursor: pointer; 
-    transition: transform 0.2s;
-}
-.back:hover { transform: translateX(-4px); }
-.details-title { font-size: 34px; font-weight: 800; margin-bottom: 15px; }
+/* Detail View Layout */
+#details { display: none; padding-top: 90px; }
+.detail-container { display: grid; grid-template-columns: 320px 1fr; gap: 30px; max-width: 1200px; margin: auto; padding: 0 5%; }
+.detail-poster img { width: 100%; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
+.detail-info { display: flex; flex-direction: column; gap: 15px; }
+.detail-title { font-size: 36px; font-weight: 800; }
+.tags { display: flex; gap: 8px; }
+.tag { background: rgba(255, 255, 255, 0.06); padding: 4px 12px; border-radius: 6px; font-size: 12px; color: #cbd5e1; }
+.score-box { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 14px; display: flex; align-items: center; gap: 20px; }
+.score { font-size: 32px; font-weight: 800; color: #ff2a5f; }
 
-.media-container { 
-    width: 100%; 
-    height: 520px; 
-    background: #000; 
-    border-radius: 14px; 
-    overflow: hidden; 
-    margin-top: 20px; 
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-}
-video, iframe { width: 100%; height: 100%; border: 0; display: block; }
+.media-player { width: 100%; height: 480px; background: #000; border-radius: 16px; overflow: hidden; margin-top: 20px; }
+video, iframe { width: 100%; height: 100%; border: 0; }
 
-.overview-sec { margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 25px; }
-.overview-title { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
-.overview-desc { color: #9ca3af; line-height: 1.8; font-size: 15px; margin-bottom: 25px; }
-.info-group { margin-bottom: 18px; }
-.info-label { color: #6b7280; font-size: 13px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 4px; }
-.info-value { color: #e5e7eb; font-size: 15px; }
-.tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
-.tag { background: rgba(255,255,255,0.06); padding: 6px 14px; border-radius: 8px; font-size: 13px; color: #d1d5db; border: 1px solid rgba(255,255,255,0.05); }
-
-footer { text-align: center; padding: 40px; margin-top: 50px; background: #090a0d; color: #4b5563; font-size: 14px; border-top: 1px solid rgba(255,255,255,0.05); }
+.back-btn { color: #ff2a5f; cursor: pointer; font-weight: 700; margin-bottom: 20px; display: inline-block; }
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
@@ -218,60 +127,64 @@ footer { text-align: center; padding: 40px; margin-top: 50px; background: #090a0
 <body>
 
 <header>
-<div class="logo">Watch<span>Anime</span></div>
-<nav>
-    <a href="#" onclick="showHome()">Home</a>
-    <a href="#" onclick="showHome()">Categories</a>
-</nav>
+    <div class="logo">Watch<span>Anime</span></div>
+    <nav>
+        <a href="#" class="active" onclick="showHome()">Home</a>
+        <a href="#" onclick="showHome()">Categories</a>
+        <a href="#">Trending</a>
+        <a href="#">Top Rated</a>
+    </nav>
+    <div class="nav-right">
+        <div class="search-bar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search anime...">
+        </div>
+    </div>
 </header>
 
 <div id="home">
-<div class="hero">
-<h1>Unlimited Movies & Anime</h1>
-<p>Stream high-quality content updated dynamically.</p>
-<div class="search-container">
-    <input id="search" class="search" type="text" placeholder="Search for movies...">
-</div>
-</div>
-
-<section id="anime">
-<h2 class="title">Trending Now</h2>
-<div class="grid" id="movieGrid"></div>
-</section>
-</div>
-
-<section id="details">
-<div class="details-box">
-<span class="back" onclick="showHome()">← Back to Home</span>
-<h1 id="animeTitle" class="details-title">Loading...</h1>
-
-<div class="media-container" id="mediaBox"></div>
-
-<div class="overview-sec">
-    <div class="overview-title">Overview</div>
-    <p id="movieDesc" class="overview-desc">Loading description...</p>
-
-    <div class="info-group">
-        <div class="info-label">Runtime</div>
-        <div class="info-value" id="movieRuntime">-</div>
+    <div class="hero">
+        <div class="hero-content">
+            <div class="tag-line">JOURNEY BEYOND IMAGINATION</div>
+            <h1 class="hero-title">Discover Anime <span>Beyond Reality</span></h1>
+            <p class="hero-desc">Explore thousands of anime movies and series. Stream in high quality with an immersive experience.</p>
+            <div class="hero-btns">
+                <button class="btn-primary"><i class="fa-solid fa-play"></i> Explore Now</button>
+                <button class="btn-secondary"><i class="fa-solid fa-bookmark"></i> My Watchlist</button>
+            </div>
+        </div>
     </div>
 
-    <div class="info-group">
-        <div class="info-label">Genres</div>
-        <div class="tags" id="movieGenres"></div>
-    </div>
-
-    <div class="info-group">
-        <div class="info-label">Production</div>
-        <div class="info-value" id="movieProduction">-</div>
+    <div class="section">
+        <div class="section-title"><i class="fa-solid fa-fire"></i> Trending Now</div>
+        <div class="grid" id="movieGrid"></div>
     </div>
 </div>
-</div>
-</section>
 
-<footer>
-    <p>&copy; 2026 WatchAnimeWorld. All rights reserved.</p>
-</footer>
+<div id="details">
+    <div class="detail-container">
+        <div>
+            <span class="back-btn" onclick="showHome()"><i class="fa-solid fa-arrow-left"></i> Back to Home</span>
+            <div class="detail-poster" id="posterBox"></div>
+        </div>
+        <div class="detail-info">
+            <h1 class="detail-title" id="animeTitle">Loading...</h1>
+            <div class="tags" id="movieGenres"></div>
+            
+            <div class="score-box">
+                <div class="score" id="movieRating">8.7</div>
+                <div>
+                    <div style="font-weight:700;">Out of 10</div>
+                    <div style="color:#64748b; font-size:12px;">TMDB Community Rating</div>
+                </div>
+            </div>
+
+            <p style="color:#94a3b8; line-height:1.7;" id="movieDesc"></p>
+
+            <div class="media-player" id="mediaBox"></div>
+        </div>
+    </div>
+</div>
 
 <script>
 const TMDB_API_KEY = "7ddf0f77a2643442a53c286ea8391a81"; 
@@ -283,9 +196,9 @@ const animeList = [
     { tmdbId: 1007757, url: "https://fuckme.dragonballzfans.xyz/8476111ce1283036af4e67f8da549cb5/f693e2a5a468d59e1ac04ebacb58e27e.m3u8" },
     { tmdbId: 980431,  url: "https://fuckme.dragonballzfans.xyz/a9a9b21bcebf0a1b9c6e76a4684df1c3/19a937ea66c4600b694889257b6239c7.m3u8" },
     { tmdbId: 862,     url: "https://fuckme.dragonballzfans.xyz/c701a7210f20f24e67f4772e171147ce/2831bd9e9b148524acf1999c9a0fc3a0.m3u8" },
-    { tmdbId: 863,   url: "https://fuckme.dragonballzfans.xyz/eaeb46d9c82604960d90c67a6aea0ada/e3fd4e6692b6717a60a064f2c56a9cab.m3u8" },
+    { tmdbId: 863,     url: "https://fuckme.dragonballzfans.xyz/eaeb46d9c82604960d90c67a6aea0ada/e3fd4e6692b6717a60a064f2c56a9cab.m3u8" },
     { tmdbId: 10193,   url: "https://fuckme.dragonballzfans.xyz/9997613d6552b9b750654e7019f5e5a1/44258401a36cada4c2b45eec1bb96e07.m3u8" },
-    { tmdbId: 301528,    url: "https://fuckme.dragonballzfans.xyz/f86a36f28fd75920c2457561f7537329/c555fec70eeccc00716e18aaae1aa15a.m3u8" }
+    { tmdbId: 301528,  url: "https://fuckme.dragonballzfans.xyz/f86a36f28fd75920c2457561f7537329/c555fec70eeccc00716e18aaae1aa15a.m3u8" }
 ];
 
 let fetchedMovies = {};
@@ -301,16 +214,17 @@ async function loadMovies() {
             const data = await res.json();
             
             fetchedMovies[item.tmdbId] = { ...data, videoUrl: item.url };
-
             const posterImg = data.poster_path ? IMAGE_BASE_URL + data.poster_path : '';
             
             grid.innerHTML += `
-                <div class="anime" data-name="${data.title}">
-                    <div class="poster"><img src="${posterImg}" alt="${data.title}"></div>
-                    <div class="info">
-                        <h3>${data.title}</h3>
-                        <div class="rating">★ ${data.vote_average ? data.vote_average.toFixed(1) : 'N/A'}</div>
-                        <button class="watch-btn" onclick="openAnime(${item.tmdbId})">Watch Now</button>
+                <div class="card" onclick="openAnime(${item.tmdbId})">
+                    <div class="card-img"><img src="${posterImg}" alt="${data.title}"></div>
+                    <div class="card-info">
+                        <div class="card-title">${data.title}</div>
+                        <div class="card-meta">
+                            <span>${data.release_date ? data.release_date.split('-')[0] : 'N/A'}</span>
+                            <span class="rating"><i class="fa-solid fa-star"></i> ${data.vote_average ? data.vote_average.toFixed(1) : 'N/A'}</span>
+                        </div>
                     </div>
                 </div>
             `;
@@ -328,12 +242,10 @@ function openAnime(tmdbId) {
     document.getElementById("details").style.display = "block";
     document.getElementById("animeTitle").textContent = movie.title;
     document.getElementById("movieDesc").textContent = movie.overview || "No description available.";
+    document.getElementById("movieRating").textContent = movie.vote_average ? movie.vote_average.toFixed(1) : "N/A";
     
-    const hours = Math.floor(movie.runtime / 60);
-    const mins = movie.runtime % 60;
-    document.getElementById("movieRuntime").textContent = `${hours}h ${mins}m`;
-
-    document.getElementById("movieProduction").textContent = movie.production_companies ? movie.production_companies.map(c => c.name).join(", ") : "N/A";
+    const posterImg = movie.poster_path ? IMAGE_BASE_URL + movie.poster_path : '';
+    document.getElementById("posterBox").innerHTML = `<img src="${posterImg}">`;
 
     const genreBox = document.getElementById("movieGenres");
     genreBox.innerHTML = movie.genres ? movie.genres.map(g => `<span class="tag">${g.name}</span>`).join("") : "";
@@ -347,29 +259,13 @@ function loadVideo(url) {
     if (hls) { hls.destroy(); hls = null; }
     mediaBox.innerHTML = "";
 
-    if (!url) {
-        mediaBox.innerHTML = "<p style='padding:20px; text-align:center;'>Video link unavailable</p>";
-        return;
-    }
-
     if (Hls.isSupported() && url.endsWith(".m3u8")) {
         mediaBox.innerHTML = `<video id="videoPlayer" controls playsinline crossorigin="anonymous"></video>`;
         const video = document.getElementById("videoPlayer");
-        
-        hls = new Hls({
-            renderTextTracksNatively: true,
-            subtitlePreference: { lang: 'en' }
-        });
-
+        hls = new Hls({ renderTextTracksNatively: true });
         hls.loadSource(url);
         hls.attachMedia(video);
-        
-        hls.on(Hls.Events.MANIFEST_PARSED, () => {
-            if (hls.subtitleTracks.length > 0) {
-                hls.subtitleTrack = 0;
-            }
-            video.play().catch(()=>{});
-        });
+        hls.on(Hls.Events.MANIFEST_PARSED, () => video.play().catch(()=>{}));
     } else {
         mediaBox.innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay"></iframe>`;
     }
