@@ -1,98 +1,315 @@
 <!DOCTYPE html>
-<html lang="ku" dir="rtl">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MY ANIME</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            user-select: none;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WatchAnime - Stream Movies</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        body {
-            background-color: #090d16;
-            color: #f8fafc;
-            font-family: system-ui, -apple-system, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-        }
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { 
+    background-color: #08070b; 
+    color: #e2e8f0; 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    overflow-x: hidden;
+}
 
-        .player-container {
-            position: relative;
-            width: 100%;
-            max-width: 850px;
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+/* Glassmorphism Header */
+header { 
+    background: rgba(12, 10, 18, 0.9); 
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 12px 5%; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
+    position: fixed;
+    top: 0; width: 100%;
+    z-index: 1000;
+    gap: 10px;
+}
+.logo { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; color: #fff; cursor: pointer; white-space: nowrap; }
+.logo span { color: #ff2a5f; }
+nav { display: flex; gap: 20px; }
+nav a { 
+    color: #94a3b8; 
+    text-decoration: none; 
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+nav a:hover, nav a.active { color: #ffffff; }
 
-        .player-container video {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            display: block;
-        }
+.search-bar {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px 14px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 200px;
+    width: 100%;
+}
+.search-bar input {
+    background: transparent; border: none; outline: none; color: #fff; font-size: 13px; width: 100%;
+}
 
-        .custom-watermark {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            z-index: 10;
-            pointer-events: none;
-            background: rgba(9, 13, 22, 0.85);
-            padding: 6px 14px;
-            border-radius: 8px;
-            border: 1px solid rgba(56, 189, 248, 0.4);
-            backdrop-filter: blur(5px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-        }
+/* Rsposive Fixes for Mobile Browsers */
+@media (max-width: 600px) {
+    header {
+        flex-wrap: wrap;
+        padding: 10px 4%;
+    }
+    .logo {
+        font-size: 18px;
+    }
+    nav {
+        display: none; /* شاردنەوەی بەشی نێڤیگەیشن بۆ دروستنەکردنی کێشە لە مۆبایل */
+    }
+    .search-bar {
+        max-width: 150px;
+        padding: 6px 10px;
+    }
+    .search-bar input {
+        font-size: 11px;
+    }
+    .hero-title {
+        font-size: 32px !important;
+    }
+    .hero-desc {
+        font-size: 13px !important;
+    }
+}
 
-        .wm-main {
-            color: #38bdf8;
-            font-weight: 800;
-            font-size: 14px;
-            letter-spacing: 1px;
-            text-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
-        }
+/* Hero Section */
+.hero { 
+    position: relative;
+    min-height: 60vh; 
+    background: linear-gradient(180deg, rgba(8, 7, 11, 0.4) 0%, #08070b 100%),
+                url('https://image.tmdb.org/t/p/original/nTvM431s3266gB323S3B331.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    padding: 100px 5% 40px;
+}
+.hero-content { max-width: 600px; z-index: 2; }
+.tag-line { color: #ff2a5f; font-weight: 700; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+.hero-title { font-size: 48px; font-weight: 800; line-height: 1.1; margin-bottom: 15px; }
+.hero-title span { color: #ff2a5f; }
+.hero-desc { color: #94a3b8; font-size: 15px; line-height: 1.6; margin-bottom: 25px; }
 
-        .wm-sub {
-            color: #facc15;
-            font-size: 11px;
-            font-weight: bold;
-            direction: rtl;
-        }
-    </style>
+/* Grid Layout */
+.section { padding: 30px 5%; }
+.section-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.section-title i { color: #ff2a5f; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
+
+.card { 
+    background: rgba(255, 255, 255, 0.02); 
+    border-radius: 12px; overflow: hidden; 
+    border: 1px solid rgba(255, 255, 255, 0.05); 
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.card:hover { transform: translateY(-5px); border-color: rgba(255, 42, 95, 0.4); }
+.card-img { height: 210px; position: relative; overflow: hidden; background: #1a1921; }
+.card-img img { width: 100%; height: 100%; object-fit: cover; }
+.card-info { padding: 10px; }
+.card-title { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 4px; }
+.card-meta { display: flex; justify-content: space-between; font-size: 11px; color: #64748b; }
+.rating { color: #f59e0b; font-weight: 600; }
+
+/* Detail View Layout */
+#details { display: none; padding-top: 90px; padding-bottom: 60px; }
+.detail-container { display: grid; grid-template-columns: 280px 1fr; gap: 25px; max-width: 1200px; margin: auto; padding: 0 5%; }
+@media (max-width: 768px) { 
+    .detail-container { grid-template-columns: 1fr; }
+    .media-player { height: 260px !important; }
+}
+
+.detail-poster img { width: 100%; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
+.detail-info { display: flex; flex-direction: column; gap: 15px; }
+.detail-title { font-size: 28px; font-weight: 800; }
+.tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.tag { background: rgba(255, 255, 255, 0.06); padding: 4px 12px; border-radius: 6px; font-size: 12px; color: #cbd5e1; }
+.score-box { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 12px; display: flex; align-items: center; gap: 12px; width: fit-content; }
+.score { font-size: 24px; font-weight: 800; color: #ff2a5f; }
+
+.media-player { width: 100%; height: 450px; background: #000; border-radius: 16px; overflow: hidden; margin-top: 15px; position: relative; }
+video, iframe { width: 100%; height: 100%; border: 0; }
+
+.back-btn { color: #ff2a5f; cursor: pointer; font-weight: 700; margin-bottom: 15px; display: inline-block; }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
 </head>
 <body>
 
-    <div class="player-container">
-        <video id="mainPlayer" controls src="https://pixeldrain.com/api/file/5Lh4Xd9K?download"></video>
-        
-        <div class="custom-watermark">
-            <div class="wm-main">MY ANIME</div>
-            <div class="wm-sub">کوردی / Kurdish Streaming</div>
+<header>
+    <div class="logo" onclick="showHome()">Watch<span>Anime</span></div>
+    <nav>
+        <a href="#" class="active" onclick="showHome()">Home</a>
+    </nav>
+    <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass" style="color: #64748b; font-size: 12px;"></i>
+        <input type="text" id="searchInput" placeholder="Search..." onkeyup="filterMovies()">
+    </div>
+</header>
+
+<div id="home">
+    <div class="hero">
+        <div class="hero-content">
+            <div class="tag-line">JOURNEY BEYOND IMAGINATION</div>
+            <h1 class="hero-title">Discover Anime <span>Beyond Reality</span></h1>
+            <p class="hero-desc">Explore thousands of anime movies and series. Stream in high quality with an immersive experience.</p>
         </div>
     </div>
 
-    <script>
-        const animeList = [
-            { tmdbId: 1084242, url: "https://pixeldrain.com/api/file/5Lh4Xd9K?download" },
-            { tmdbId: 269149,  url: "https://fuckme.dragonballzfans.xyz/4ed0a5b0e612a69f0f80ce4ad1337df1/2729a8e62ad97c5bc841722b33597569.m3u8" },
-            { tmdbId: 1007757, url: "https://fuckme.dragonballzfans.xyz/8476111ce1283036af4e67f8da549cb5/f693e2a5a468d59e1ac04ebacb58e27e.m3u8" },
-            { tmdbId: 980431,  url: "https://fuckme.dragonballzfans.xyz/a9a9b21bcebf0a1b9c6e76a4684df1c3/19a937ea66c4600b694889257b6239c7.m3u8" },
-            { tmdbId: 862,     url: "https://fuckme.dragonballzfans.xyz/c701a7210f20f24e67f4772e171147ce/2831bd9e9b148524acf1999c9a0fc3a0.m3u8" },
-            { tmdbId: 863,     url: "https://fuckme.dragonballzfans.xyz/eaeb46d9c82604960d90c67a6aea0ada/e3fd4e6692b6717a60a064f2c56a9cab.m3u8" },
-            { tmdbId: 10193,   url: "https://fuckme.dragonballzfans.xyz/9997613d6552b9b750654e7019f5e5a1/44258401a36cada4c2b45eec1bb96e07.m3u8" },
-            { tmdbId: 301528,  url: "https://fuckme.dragonballzfans.xyz/f86a36f28fd75920c2457561f7537329/c555fec70eeccc00716e18aaae1aa15a.m3u8" }
-        ];
-    </script>
+    <div class="section">
+        <div class="section-title"><i class="fa-solid fa-fire"></i> Trending Movies</div>
+        <div class="grid" id="movieGrid"></div>
+    </div>
+</div>
+
+<div id="details">
+    <div class="detail-container">
+        <div>
+            <span class="back-btn" onclick="showHome()"><i class="fa-solid fa-arrow-left"></i> Back to Home</span>
+            <div class="detail-poster" id="posterBox"></div>
+        </div>
+        <div class="detail-info">
+            <h1 class="detail-title" id="animeTitle">Loading...</h1>
+            <div class="tags" id="movieGenres"></div>
+            
+            <div class="score-box">
+                <div class="score" id="movieRating">8.7</div>
+                <div>
+                    <div style="font-weight:700; font-size: 13px;">TMDB Rating</div>
+                    <div style="color:#64748b; font-size:11px;">Community Score</div>
+                </div>
+            </div>
+
+            <p style="color:#94a3b8; line-height:1.6; font-size:14px;" id="movieDesc"></p>
+
+            <div class="media-player" id="mediaBox"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+const TMDB_API_KEY = "7ddf0f77a2643442a53c286ea8391a81"; 
+const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+
+const animeList = [
+    { tmdbId: 1084242, url: "https://fuckme.dragonballzfans.xyz/11abc69bb14e1ce94c5c2284e6d71619/164cc7ac38d81ad555676b3e921e118c.m3u8" },
+    { tmdbId: 269149,  url: "https://fuckme.dragonballzfans.xyz/4ed0a5b0e612a69f0f80ce4ad1337df1/2729a8e62ad97c5bc841722b33597569.m3u8" },
+    { tmdbId: 1007757, url: "https://fuckme.dragonballzfans.xyz/8476111ce1283036af4e67f8da549cb5/f693e2a5a468d59e1ac04ebacb58e27e.m3u8" },
+    { tmdbId: 980431,  url: "https://fuckme.dragonballzfans.xyz/a9a9b21bcebf0a1b9c6e76a4684df1c3/19a937ea66c4600b694889257b6239c7.m3u8" },
+    { tmdbId: 862,     url: "https://fuckme.dragonballzfans.xyz/c701a7210f20f24e67f4772e171147ce/2831bd9e9b148524acf1999c9a0fc3a0.m3u8" },
+    { tmdbId: 863,     url: "https://fuckme.dragonballzfans.xyz/eaeb46d9c82604960d90c67a6aea0ada/e3fd4e6692b6717a60a064f2c56a9cab.m3u8" },
+    { tmdbId: 10193,   url: "https://fuckme.dragonballzfans.xyz/9997613d6552b9b750654e7019f5e5a1/44258401a36cada4c2b45eec1bb96e07.m3u8" },
+    { tmdbId: 301528,  url: "https://fuckme.dragonballzfans.xyz/f86a36f28fd75920c2457561f7537329/c555fec70eeccc00716e18aaae1aa15a.m3u8" }
+];
+
+let fetchedMovies = {};
+let hls = null;
+
+async function loadMovies() {
+    const grid = document.getElementById("movieGrid");
+    grid.innerHTML = "";
+
+    for (let item of animeList) {
+        try {
+            const res = await fetch(`https://api.themoviedb.org/3/movie/${item.tmdbId}?api_key=${TMDB_API_KEY}`);
+            if (!res.ok) continue;
+            const data = await res.json();
+            
+            fetchedMovies[item.tmdbId] = { ...data, videoUrl: item.url };
+            const posterImg = data.poster_path ? IMAGE_BASE_URL + data.poster_path : '';
+            
+            const cardHTML = `
+                <div class="card" onclick="openAnime(${item.tmdbId})" data-title="${data.title.toLowerCase()}">
+                    <div class="card-img"><img src="${posterImg}" alt="${data.title}"></div>
+                    <div class="card-info">
+                        <div class="card-title">${data.title}</div>
+                        <div class="card-meta">
+                            <span>${data.release_date ? data.release_date.split('-')[0] : 'N/A'}</span>
+                            <span class="rating"><i class="fa-solid fa-star"></i> ${data.vote_average ? data.vote_average.toFixed(1) : 'N/A'}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            grid.innerHTML += cardHTML;
+        } catch (err) {
+            console.error("Error loading movie:", item.tmdbId, err);
+        }
+    }
+}
+
+function filterMovies() {
+    const query = document.getElementById("searchInput").value.toLowerCase();
+    const cards = document.querySelectorAll(".card");
+    cards.forEach(card => {
+        const title = card.getAttribute("data-title");
+        card.style.display = title.includes(query) ? "block" : "none";
+    });
+}
+
+function openAnime(tmdbId) {
+    const movie = fetchedMovies[tmdbId];
+    if (!movie) return;
+
+    document.getElementById("home").style.display = "none";
+    document.getElementById("details").style.display = "block";
+    document.getElementById("animeTitle").textContent = movie.title;
+    document.getElementById("movieDesc").textContent = movie.overview || "No description available.";
+    document.getElementById("movieRating").textContent = movie.vote_average ? movie.vote_average.toFixed(1) : "N/A";
+    
+    const posterImg = movie.poster_path ? IMAGE_BASE_URL + movie.poster_path : '';
+    document.getElementById("posterBox").innerHTML = `<img src="${posterImg}">`;
+
+    const genreBox = document.getElementById("movieGenres");
+    genreBox.innerHTML = movie.genres ? movie.genres.map(g => `<span class="tag">${g.name}</span>`).join("") : "";
+
+    loadVideo(movie.videoUrl);
+    window.scrollTo(0, 0);
+}
+
+function loadVideo(url) {
+    const mediaBox = document.getElementById("mediaBox");
+    if (hls) { hls.destroy(); hls = null; }
+    mediaBox.innerHTML = "";
+
+    if (!url) {
+        mediaBox.innerHTML = "<p style='padding:20px; text-align:center; color:#64748b;'>Video is not available.</p>";
+        return;
+    }
+
+    if (Hls.isSupported() && url.endsWith(".m3u8")) {
+        mediaBox.innerHTML = `<video id="videoPlayer" controls playsinline crossorigin="anonymous"></video>`;
+        const video = document.getElementById("videoPlayer");
+        hls = new Hls({ renderTextTracksNatively: true });
+        hls.loadSource(url);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, () => video.play().catch(()=>{}));
+    } else {
+        mediaBox.innerHTML = `<video controls playsinline src="${url}"></video>`;
+    }
+}
+
+function showHome() {
+    document.getElementById("details").style.display = "none";
+    document.getElementById("home").style.display = "block";
+    document.getElementById("mediaBox").innerHTML = "";
+    if (hls) { hls.destroy(); hls = null; }
+    window.scrollTo(0, 0);
+}
+
+loadMovies();
+</script>
 
 </body>
 </html>
